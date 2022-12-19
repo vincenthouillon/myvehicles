@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>MesVehicules</h1>
+  {% if user.username %}<p>User: {{ user.username }}</p>{% endif %}
+  <ul>
+    <li>
+      <a href="{% url 'accounts:register' %}">Sign up</a>
+    </li>
+    <li>
+      <a href="{% url 'accounts:login' %}">Sign in</a>
+    </li>
+    <li>
+      <a href="{% url 'accounts:logout' %}">Logout</a>
+    </li>
+  </ul>
+{% endblock content %}
