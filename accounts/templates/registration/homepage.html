@@ -9,8 +9,13 @@
     <li>
       <a href="{% url 'accounts:login' %}">Sign in</a>
     </li>
-    <li>
-      <a href="{% url 'accounts:logout' %}">Logout</a>
-    </li>
+    {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'accounts:logout' %}">Logout</a>
+      </li>
+      <li>
+        <a href="{% url 'accounts:profile' user.pk %}">Profile</a>
+      </li>
+    {% endif %}
   </ul>
 {% endblock content %}
