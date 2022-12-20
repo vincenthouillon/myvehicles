@@ -19,6 +19,10 @@
       <li>
         <a href="{% url 'accounts:profile' user.pk %}">Profile</a>
       </li>
+      <br>
+      <li>
+        <a href="{% url 'vehicles:list' %}">Vehicle list</a>
+      </li>
     {% endif %}
   </ul>
 {% endblock content %}

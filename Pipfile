@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 pillow = "*"
 django-private-storage = "*"
+django-cleanup = "*"
 
 [dev-packages]
 rope = "*"

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+  <h2>{% trans "New vehicle" %}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Save" %}</button>
+  </form>
+  {% if vehicle %}
+    <form action="{% url 'vehicles:delete' vehicle.slug %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="{% trans "Delete" %}">
+    </form>
+  {% endif %}
+{% endblock content %}

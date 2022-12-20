@@ -1,4 +1,4 @@
-"""config URL Configuration
+"""vehicle URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -13,13 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import private_storage.urls
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+
+from .views import (
+    VehicleCreateView,
+    VehicleDeleteView,
+    VehicleEditView,
+    VehicleListView,
+)
+
+app_name = "vehicles"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("", include("vehicles.urls")),
-    path("media/", include(private_storage.urls)),
+    path("", VehicleListView.as_view(), name="list"),
+    path("add/", VehicleCreateView.as_view(), name="add"),
+    path("<slug:slug>/", VehicleEditView.as_view(), name="edit"),
+    path("<slug:slug>/delete/", VehicleDeleteView.as_view(), name="delete"),
 ]
