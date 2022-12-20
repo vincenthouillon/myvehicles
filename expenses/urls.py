@@ -1,4 +1,4 @@
-"""config URL Configuration
+"""expenses URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -13,18 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import private_storage.urls
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+
+from .views import (
+    ExpenseCreateView,
+    ExpenseDeleteView,
+    ExpenseEditView,
+    ExpenseListView,
+)
+
+app_name = "expenses"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("", include("vehicles.urls")),
-    path("supplies/", include("supplies.urls")),
-    path("expenses/", include("expenses.urls")),
-]
-
-urlpatterns += [
-    path("media/", include(private_storage.urls)),
+    path("<slug:slug>/all/", ExpenseListView.as_view(), name="list"),
+    path("<slug:slug>/add/", ExpenseCreateView.as_view(), name="add"),
+    path("edit/<int:pk>/", ExpenseEditView.as_view(), name="edit"),
+    path("delete/<int:pk>/", ExpenseDeleteView.as_view(), name="delete"),
 ]

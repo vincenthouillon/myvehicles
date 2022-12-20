@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "accounts",
     "vehicles",
     "supplies",
+    "expenses",
 ]
 
 AUTH_USER_MODEL = "accounts.User"

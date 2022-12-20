@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+  <h2>{% trans "Expense list" %}</h2>
+  {% for expense in expense_list %}
+    <a href="{% url 'expenses:edit' expense.pk %}">{{ expense }} - {{ expense.vehicle }}</a>
+    <br>
+  {% empty %}
+    <p>{% trans "Expenses not found!" %}</p>
+  {% endfor %}
+  <a href="{% url 'expenses:add' slug %}">{% trans "Add" %}</a>
+{% endblock content %}
