@@ -1,4 +1,4 @@
-"""config URL Configuration
+"""supplies URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -13,17 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import private_storage.urls
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+
+from .views import SupplyCreateView, SupplyDeleteView, SupplyEditView, SupplyListView
+
+app_name = "supplies"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("", include("vehicles.urls")),
-    path("supplies/", include("supplies.urls")),
-]
-
-urlpatterns += [
-    path("media/", include(private_storage.urls)),
+    path("<slug:slug>/all/", SupplyListView.as_view(), name="list"),
+    path("<slug:slug>/add/", SupplyCreateView.as_view(), name="add"),
+    path("edit/<int:pk>/", SupplyEditView.as_view(), name="edit"),
+    path("delete/<int:pk>/", SupplyDeleteView.as_view(), name="delete"),
 ]

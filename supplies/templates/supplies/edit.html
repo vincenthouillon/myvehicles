@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+  <h2>{% trans "Supply form" %}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Save" %}</button>
+  </form>
+  {% if supply %}
+    <form action="{% url 'supplies:delete' object.pk %}" method="post">
+      {% csrf_token %}
+      <button type="submit">{% trans "Delete" %}</button>
+    </form>
+  {% endif %}
+{% endblock content %}

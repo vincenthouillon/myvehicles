@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "private_storage",
     "accounts",
     "vehicles",
+    "supplies",
 ]
 
 AUTH_USER_MODEL = "accounts.User"
