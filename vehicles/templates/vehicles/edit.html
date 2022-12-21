@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <h2>{% trans "New vehicle" %}</h2>
+  {% if vehicle %}
+    <h2>{{ vehicle.name }}</h2>
+    <img src="{{ vehicle.picture.url }}"
+         alt="{% trans "vehicle picture" %}"
+         style="width: 400px">
+  {% else %}
+    <h2>{% trans "New vehicle" %}</h2>
+  {% endif %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
