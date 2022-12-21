@@ -35,6 +35,7 @@ class Mixin(View):
 class SupplyListView(LoginRequiredMixin, Mixin, ListView):
     model = Supply
     template_name = "supplies/list.html"
+    paginate_by = 20
 
     def get_queryset(self):
         return Supply.objects.filter(

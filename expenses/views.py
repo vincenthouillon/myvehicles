@@ -35,6 +35,7 @@ class Mixin(View):
 class ExpenseListView(LoginRequiredMixin, Mixin, ListView):
     model = Expense
     template_name = "expenses/list.html"
+    paginate_by = 20
 
     def get_queryset(self):
         return Expense.objects.filter(
