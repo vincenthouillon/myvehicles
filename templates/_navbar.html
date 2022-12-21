@@ -1,0 +1,18 @@
+{% load i18n %}
+<nav>
+  {% if user.is_authenticated %}
+    <a href="{% url 'vehicles:list' %}">Home</a>
+    {% if vehicle %}
+      <a href="{% url 'supplies:list' vehicle.slug %}">{% trans "Supplies" %}</a>
+      <a href="{% url 'expenses:list' vehicle.slug %}">{% trans "Expenses" %}</a>
+    {% endif %}
+    &middot;
+    <a href="{% url 'accounts:profile' request.user.id %}">{% trans "Profile" %}</a>
+    <a href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a>
+  {% else %}
+    &middot;
+    <a href="{% url 'accounts:login' %}">{% trans "Sign In" %}</a>
+    <a href="{% url 'accounts:register' %}">{% trans "Sign up" %}</a>
+  {% endif %}
+</nav>
+<hr>
