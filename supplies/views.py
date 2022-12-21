@@ -9,16 +9,30 @@ from .forms import SupplyForm
 from .models import Supply
 
 
-class SuccessURL(View):
-    """Abstract class for add `get_success_url`. Do not use directly."""
+class Mixin(View):
+    """Abstract class for add `get_success_url` and `get_context_data` with
+    vehicle instance. Do not use directly.
+    """
 
     def get_success_url(self):
         return reverse_lazy(
             "supplies:list", kwargs={"slug": self.object.vehicle.slug}  # type:ignore
         )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  # type:ignore
+        try:
+            context["vehicle"] = Vehicle.objects.get(
+                slug=self.kwargs["slug"]  # type:ignore
+            )
+        except KeyError:
+            context["vehicle"] = Vehicle.objects.get(
+                slug=self.object.vehicle.slug  # type:ignore
+            )
+        return context
 
-class SupplyListView(LoginRequiredMixin, ListView):
+
+class SupplyListView(LoginRequiredMixin, Mixin, ListView):
     model = Supply
     template_name = "supplies/list.html"
 
@@ -27,13 +41,8 @@ class SupplyListView(LoginRequiredMixin, ListView):
             vehicle__slug=self.kwargs["slug"], vehicle__owner=self.request.user
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["slug"] = self.kwargs["slug"]
-        return context
 
-
-class SupplyCreateView(LoginRequiredMixin, SuccessURL, CreateView):
+class SupplyCreateView(LoginRequiredMixin, Mixin, CreateView):
     form_class = SupplyForm
     template_name = "supplies/edit.html"
 
@@ -46,7 +55,7 @@ class SupplyCreateView(LoginRequiredMixin, SuccessURL, CreateView):
         return super().form_valid(form)
 
 
-class SupplyEditView(LoginRequiredMixin, SuccessURL, UpdateView):
+class SupplyEditView(LoginRequiredMixin, Mixin, UpdateView):
     form_class = SupplyForm
     template_name = "supplies/edit.html"
 
@@ -54,5 +63,5 @@ class SupplyEditView(LoginRequiredMixin, SuccessURL, UpdateView):
         return Supply.objects.filter(vehicle__owner=self.request.user)
 
 
-class SupplyDeleteView(SuccessURL, DeleteView):
+class SupplyDeleteView(Mixin, DeleteView):
     model = Supply

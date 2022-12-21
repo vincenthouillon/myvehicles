@@ -9,16 +9,30 @@ from .forms import ExpenseForm
 from .models import Expense
 
 
-class SuccessURL(View):
-    """Abstract class for add `get_success_url`. Do not use directly."""
+class Mixin(View):
+    """Abstract class for add `get_success_url` and `get_context_data` with
+    vehicle instance. Do not use directly.
+    """
 
     def get_success_url(self):
         return reverse_lazy(
             "expenses:list", kwargs={"slug": self.object.vehicle.slug}  # type:ignore
         )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  # type:ignore
+        try:
+            context["vehicle"] = Vehicle.objects.get(
+                slug=self.kwargs["slug"]  # type:ignore
+            )
+        except KeyError:
+            context["vehicle"] = Vehicle.objects.get(
+                slug=self.object.vehicle.slug  # type:ignore
+            )
+        return context
 
-class ExpenseListView(LoginRequiredMixin, ListView):
+
+class ExpenseListView(LoginRequiredMixin, Mixin, ListView):
     model = Expense
     template_name = "expenses/list.html"
 
@@ -27,13 +41,8 @@ class ExpenseListView(LoginRequiredMixin, ListView):
             vehicle__slug=self.kwargs["slug"], vehicle__owner=self.request.user
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["slug"] = self.kwargs["slug"]
-        return context
 
-
-class ExpenseCreateView(LoginRequiredMixin, SuccessURL, CreateView):
+class ExpenseCreateView(LoginRequiredMixin, Mixin, CreateView):
     form_class = ExpenseForm
     template_name = "expenses/edit.html"
 
@@ -46,7 +55,7 @@ class ExpenseCreateView(LoginRequiredMixin, SuccessURL, CreateView):
         return super().form_valid(form)
 
 
-class ExpenseEditView(LoginRequiredMixin, SuccessURL, UpdateView):
+class ExpenseEditView(LoginRequiredMixin, Mixin, UpdateView):
     form_class = ExpenseForm
     template_name = "expenses/edit.html"
 
@@ -54,5 +63,5 @@ class ExpenseEditView(LoginRequiredMixin, SuccessURL, UpdateView):
         return Expense.objects.filter(vehicle__owner=self.request.user)
 
 
-class ExpenseDeleteView(SuccessURL, DeleteView):
+class ExpenseDeleteView(Mixin, DeleteView):
     model = Expense

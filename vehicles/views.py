@@ -6,23 +6,25 @@ from .forms import VehicleForm
 from .models import Vehicle
 
 
-class UserFilter(View):
-    """Abstract class for filter users. Do not use directly."""
+class Mixin(View):
+    """Abstract class for filter users and add `success_url`. Do not use directly."""
 
     def get_queryset(self):
         """Filter vehicles by user."""
         return Vehicle.objects.filter(owner=self.request.user)
 
+    def get_success_url(self):
+        return reverse_lazy("vehicles:list")
 
-class VehicleListView(LoginRequiredMixin, UserFilter, ListView):
+
+class VehicleListView(LoginRequiredMixin, Mixin, ListView):
     model = Vehicle
     template_name = "vehicles/list.html"
 
 
-class VehicleCreateView(LoginRequiredMixin, CreateView):
+class VehicleCreateView(LoginRequiredMixin, Mixin, CreateView):
     form_class = VehicleForm
     template_name = "vehicles/edit.html"
-    success_url = reverse_lazy("vehicles:list")
 
     def form_valid(self, form):
         """If the form is valid, save the associated model."""
@@ -32,12 +34,10 @@ class VehicleCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class VehicleEditView(LoginRequiredMixin, UserFilter, UpdateView):
+class VehicleEditView(LoginRequiredMixin, Mixin, UpdateView):
     form_class = VehicleForm
     template_name = "vehicles/edit.html"
-    success_url = reverse_lazy("vehicles:list")
 
 
-class VehicleDeleteView(UserFilter, DeleteView):
+class VehicleDeleteView(Mixin, DeleteView):
     model = Vehicle
-    success_url = reverse_lazy("vehicles:list")

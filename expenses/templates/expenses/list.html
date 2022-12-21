@@ -8,5 +8,5 @@
   {% empty %}
     <p>{% trans "Expenses not found!" %}</p>
   {% endfor %}
-  <a href="{% url 'expenses:add' slug %}">{% trans "Add" %}</a>
+  <a href="{% url 'expenses:add' vehicle.slug %}">{% trans "Add" %}</a>
 {% endblock content %}
