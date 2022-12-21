@@ -31,7 +31,7 @@ class UserRegsiterView(CreateView):
 class UserLoginView(LoginView):
     authentication_form = UserLoginForm
     template_name = "accounts/login.html"
-    next_page = reverse_lazy("vehicles:home")
+    next_page = reverse_lazy("vehicles:list")
 
 
 class UserLogoutView(LogoutView):
