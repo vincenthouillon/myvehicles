@@ -1,6 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView, View
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    ListView,
+    TemplateView,
+    UpdateView,
+    View,
+)
+
+from expenses.models import Expense
+from supplies.models import Supply
 
 from .forms import VehicleForm
 from .models import Vehicle
@@ -15,6 +25,18 @@ class Mixin(View):
 
     def get_success_url(self):
         return reverse_lazy("vehicles:list")
+
+
+class VehicleHomeView(LoginRequiredMixin, Mixin, TemplateView):
+    template_name = "vehicles/home.html"
+
+    def get_context_data(self, **kwargs):
+        vehicle = Vehicle.objects.get(slug=self.kwargs["slug"])
+        context = super().get_context_data(**kwargs)
+        context["vehicle"] = vehicle
+        context["supplies"] = Supply.objects.filter(vehicle=vehicle)[:10]
+        context["expenses"] = Expense.objects.filter(vehicle=vehicle)[:10]
+        return context
 
 
 class VehicleListView(LoginRequiredMixin, Mixin, ListView):

@@ -3,10 +3,11 @@
 {% block content %}
   <h2>{% trans "Vehicle list" %}</h2>
   {% for vehicle in vehicle_list %}
-    <a href="{% url 'vehicles:edit' vehicle.slug %}">{{ vehicle.name }} - {{ vehicle.slug }}</a>
+    <a href="{% url 'vehicles:home' vehicle.slug %}">{{ vehicle.name }}</a>
   {% empty %}
     <p>{% trans "Vehicle not found!" %}</p>
   {% endfor %}
+  <br>
   <br>
   <a href="{% url 'vehicles:add' %}">{% trans "Add" %}</a>
 {% endblock content %}

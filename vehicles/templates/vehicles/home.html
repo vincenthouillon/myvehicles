@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+  <h2>{{ vehicle.name }}</h2>
+  <h3>{% trans "The last 10 supplies" %}</h3>
+  <ul>
+    {% for supply in supplies %}
+      <li>{{ supply }} - {{ supply.date }}</li>
+    {% empty %}
+      <p>Supplies not found!</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'supplies:add' vehicle.slug %}">{% trans "Add supply" %}</a>
+  <h3>{% trans "The last 10 expenses" %}</h3>
+  <ul>
+    {% for expense in expenses %}
+      <li>{{ expense }} - {{ expense.date }}</li>
+    {% empty %}
+      <p>Expenses not found!</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'expenses:add' vehicle.slug %}">{% trans "Add expense" %}</a>
+{% endblock content %}

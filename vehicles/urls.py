@@ -19,6 +19,7 @@ from .views import (
     VehicleCreateView,
     VehicleDeleteView,
     VehicleEditView,
+    VehicleHomeView,
     VehicleListView,
 )
 
@@ -27,6 +28,7 @@ app_name = "vehicles"
 urlpatterns = [
     path("", VehicleListView.as_view(), name="list"),
     path("add/", VehicleCreateView.as_view(), name="add"),
-    path("<slug:slug>/", VehicleEditView.as_view(), name="edit"),
+    path("<slug:slug>/home/", VehicleHomeView.as_view(), name="home"),
+    path("<slug:slug>/edit/", VehicleEditView.as_view(), name="edit"),
     path("<slug:slug>/delete/", VehicleDeleteView.as_view(), name="delete"),
 ]

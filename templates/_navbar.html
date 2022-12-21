@@ -1,10 +1,13 @@
 {% load i18n %}
 <nav>
   {% if user.is_authenticated %}
-    <a href="{% url 'vehicles:list' %}">Home</a>
+    <a href="{% url 'vehicles:list' %}">MesVehicules</a>
     {% if vehicle %}
+      &middot;
+      <a href="{% url 'vehicles:home' vehicle.slug %}"><b>{{ vehicle.name }}</b></a>
       <a href="{% url 'supplies:list' vehicle.slug %}">{% trans "Supplies" %}</a>
       <a href="{% url 'expenses:list' vehicle.slug %}">{% trans "Expenses" %}</a>
+      <a href="{% url 'vehicles:edit' vehicle.slug %}">{% trans "Informations" %}</a>
     {% endif %}
     &middot;
     <a href="{% url 'accounts:profile' request.user.id %}">{% trans "Profile" %}</a>
