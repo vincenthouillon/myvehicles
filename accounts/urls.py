@@ -17,7 +17,6 @@ from .views import *
 app_name = "accounts"
 
 urlpatterns = [
-    path("", HomepageView.as_view(), name="home"),
     path("register/", UserRegsiterView.as_view(), name="register"),
     path("login/", UserLoginView.as_view(), name="login"),
     path("logout/", UserLogoutView.as_view(), name="logout"),

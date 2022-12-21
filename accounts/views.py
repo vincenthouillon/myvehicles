@@ -8,7 +8,7 @@ from django.contrib.auth.views import (
     PasswordResetView,
 )
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, UpdateView
+from django.views.generic import CreateView, UpdateView
 
 from .forms import (
     UserLoginForm,
@@ -21,39 +21,35 @@ from .forms import (
 from .models import User
 
 
-class HomepageView(TemplateView):
-    template_name = "accounts/homepage.html"
-
-
 class UserRegsiterView(CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = "accounts/register.html"
-    success_url = reverse_lazy("accounts:home")
+    success_url = reverse_lazy("vehicles:list")
 
 
 class UserLoginView(LoginView):
     authentication_form = UserLoginForm
     template_name = "accounts/login.html"
-    next_page = reverse_lazy("accounts:home")
+    next_page = reverse_lazy("vehicles:home")
 
 
 class UserLogoutView(LogoutView):
-    next_page = reverse_lazy("accounts:home")
+    next_page = reverse_lazy("accounts:login")
 
 
 class UserProfileView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserProfileForm
     template_name = "accounts/profile.html"
-    success_url = reverse_lazy("accounts:home")
+    success_url = reverse_lazy("vehicles:list")
 
 
 class UserPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     model = User
     form_class = UserPasswordChangeForm
     template_name = "accounts/password_change.html"
-    success_url = reverse_lazy("accounts:home")
+    success_url = reverse_lazy("vehicles:list")
 
 
 class UserPasswordResetView(PasswordResetView):
