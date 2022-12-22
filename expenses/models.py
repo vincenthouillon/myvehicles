@@ -19,6 +19,15 @@ def upload_doc(instance, filename):
     )
 
 
+class ExpenseManager(models.Manager):
+    def stats(self, vehicle):
+        return Expense.objects.filter(vehicle=vehicle).aggregate(
+            sum=models.Sum("price"),
+            count=models.Count("title"),
+            max=models.Max("mileage"),
+        )
+
+
 class Expense(models.Model):
     title = models.CharField(_("title"), max_length=128)
     vendor = models.CharField(_("vendor"), max_length=128, blank=True)
@@ -35,6 +44,7 @@ class Expense(models.Model):
         _("file"), upload_to=upload_doc, blank=True, null=True
     )
     note = models.TextField(blank=True)
+    objects = ExpenseManager()
 
     class Meta:
         verbose_name = _("expense")

@@ -11,6 +11,16 @@ def upload_doc(instance, filename):
     )
 
 
+class SupplyManager(models.Manager):
+    def stats(self, vehicle):
+        return Supply.objects.filter(vehicle=vehicle).aggregate(
+            sum=models.Sum("price"),
+            count=models.Count("vendor"),
+            max=models.Max("mileage"),
+            liter=models.Sum("number_of_liters"),
+        )
+
+
 class Supply(models.Model):
     vendor = models.CharField(_("vendor"), max_length=128, blank=True)
     fueltype = models.CharField(
@@ -28,6 +38,7 @@ class Supply(models.Model):
         _("file"), upload_to=upload_doc, blank=True, null=True
     )
     note = models.TextField(blank=True)
+    objects = SupplyManager()
 
     class Meta:
         verbose_name = _("fuel")

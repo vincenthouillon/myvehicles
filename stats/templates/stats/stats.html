@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+  <h2>{% trans "Stats" %}</h2>
+  <p>Initial mileage: {{ vehicle.mileage }}</p>
+  <p>Last mileage statement: {{ data.last_mileage }}</p>
+  <p>Number of kilometers travelled: {{ data.kilometers }}</p>
+  <p>Supplies: {{ data.supply_stat }}</p>
+  <p>Expenses: {{ data.expense_stat }}</p>
+  <hr>
+  <p>Total all costs: {{ data.all_costs }}</p>
+  <p>Supply percentage: {{ data.supply_percent }}</p>
+  <p>Expense percentage: {{ data.expense_percent }}</p>
+{% endblock content %}

@@ -8,6 +8,7 @@
       <a href="{% url 'supplies:list' vehicle.slug %}">{% trans "Supplies" %}</a>
       <a href="{% url 'expenses:list' vehicle.slug %}">{% trans "Expenses" %}</a>
       <a href="{% url 'vehicles:edit' vehicle.slug %}">{% trans "Informations" %}</a>
+      <a href="{% url 'stats:stats' vehicle.slug %}">{% trans "Stats" %}</a>
     {% endif %}
     &middot;
     <a href="{% url 'accounts:profile' request.user.id %}">{% trans "Profile" %}</a>

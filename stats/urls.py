@@ -1,4 +1,4 @@
-"""config URL Configuration
+"""stats URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -13,19 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import private_storage.urls
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("", include("vehicles.urls")),
-    path("supplies/", include("supplies.urls")),
-    path("expenses/", include("expenses.urls")),
-    path("stats/", include("stats.urls")),
-]
+from .views import StatsView
 
-urlpatterns += [
-    path("media/", include(private_storage.urls)),
-]
+app_name = "stats"
+
+urlpatterns = [path("<slug:slug>/stats/", StatsView.as_view(), name="stats")]

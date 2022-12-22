@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
@@ -40,7 +42,7 @@ class Vehicle(models.Model):
     fuel_unit = models.CharField(
         _("fuel unit"), choices=FUELUNIT, max_length=32, default="L"
     )
-    mileage = models.IntegerField(_("mileage"), blank=True, null=True)
+    mileage = models.IntegerField(_("mileage"), default=0)
     tank_size = models.IntegerField(_("tank size"), default=0)
     date_first_registration = models.DateField(
         _("date of 1st circulation"), blank=True, null=True
@@ -49,7 +51,7 @@ class Vehicle(models.Model):
         _("registration"), max_length=20, blank=True, null=True
     )
     price = models.DecimalField(
-        _("price"), max_digits=10, decimal_places=2, blank=True, null=True
+        _("price"), max_digits=10, decimal_places=2, default=Decimal("0.0")
     )
     date_purchase = models.DateField(_("date purchase"), blank=True, null=True)
     note = models.TextField(_("note"), blank=True)
