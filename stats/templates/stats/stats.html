@@ -11,4 +11,14 @@
   <p>Total all costs: {{ data.all_costs }}</p>
   <p>Supply percentage: {{ data.supply_percent }}</p>
   <p>Expense percentage: {{ data.expense_percent }}</p>
+  <hr>
+  {{ monthly_graph_data }}
+  <hr>
+  {{ expenses_category.category_labels }}
+  {{ expenses_category.category_data }}
+  <br>
+  {% for data in expenses_category.query_expense %}
+    {{ data }}
+    <br>
+  {% endfor %}
 {% endblock content %}

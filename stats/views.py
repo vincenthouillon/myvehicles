@@ -1,6 +1,11 @@
+import calendar
+from datetime import datetime
 from decimal import Decimal
 from itertools import chain
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, Sum
+from django.utils import timezone
 from django.views.generic import TemplateView
 
 from expenses.models import Expense
@@ -43,7 +48,76 @@ class Dataset:
         return (obj / all_costs * 100) if all_costs and obj else Decimal("0")
 
 
-class StatsView(TemplateView):
+class MonthlyGraph:
+    """Returns a dictionary with the months of the year and the sum
+    of the expenses and supplies for each month.
+    """
+
+    def __init__(self, vehicle):
+        self.vehicle = vehicle
+
+    def __populate(self, model):
+        YEAR = timezone.now().year
+        data_list = list()
+        for d in range(1, 13):
+            aggr = (
+                model.objects.filter(vehicle=self.vehicle)
+                .filter(
+                    date__range=(
+                        datetime(YEAR, d, 1),
+                        datetime(YEAR, d, calendar.monthrange(YEAR, d)[1]),
+                    )
+                )
+                .aggregate(sum=Sum("price"))
+            )
+            aggr["sum"] = float(aggr["sum"]) if aggr["sum"] else 0.0
+            data_list.append(aggr["sum"])
+        return data_list
+
+    def __call__(self):
+        month_list = list(calendar.month_name)[1:]
+        supply_list = self.__populate(Supply)
+        expense_list = self.__populate(Expense)
+
+        return {
+            "month_list": month_list,
+            "supplies_data": supply_list,
+            "expenses_data": expense_list,
+        }
+
+
+class ExpenseByCategory:
+    """returns a dictionary with the labels and data for the
+    expense by category chart.
+    """
+
+    def __init__(self, vehicle):
+        self.vehicle = vehicle
+
+    def __call__(self):
+        category_labels = list()
+        category_data = list()
+        qs_category = (
+            Expense.objects.filter(vehicle=self.vehicle)
+            .values("category")
+            .annotate(sum=Sum("price"), count=Count("title"))
+        )
+        for query in qs_category:
+            name = qs_category.model(
+                category=query["category"]
+            ).get_category_display()  # type:ignore
+            query["category"] = name
+            category_labels.append(name)
+            category_data.append(float(query["sum"]))
+
+        return {
+            "category_labels": category_labels,
+            "category_data": category_data,
+            "query_expense": qs_category,
+        }
+
+
+class StatsView(LoginRequiredMixin, TemplateView):
     template_name = "stats/stats.html"
 
     def get_context_data(self, **kwargs):
@@ -51,4 +125,6 @@ class StatsView(TemplateView):
         data = Dataset(self.kwargs["slug"])
         context["vehicle"] = data.vehicle
         context["data"] = data
+        context["monthly_graph_data"] = MonthlyGraph(data.vehicle)
+        context["expenses_category"] = ExpenseByCategory(data.vehicle)
         return context
