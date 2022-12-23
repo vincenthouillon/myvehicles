@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import StatsView
+from .views import AllCostsView, StatsView
 
 app_name = "stats"
 
-urlpatterns = [path("<slug:slug>/stats/", StatsView.as_view(), name="stats")]
+urlpatterns = [
+    path("<slug:slug>/stats/", StatsView.as_view(), name="stats"),
+    path("<slug:slug>/allcosts/", AllCostsView.as_view(), name="all_costs"),
+]

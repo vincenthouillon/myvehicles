@@ -75,14 +75,10 @@ class MonthlyGraph:
         return data_list
 
     def __call__(self):
-        month_list = list(calendar.month_name)[1:]
-        supply_list = self.__populate(Supply)
-        expense_list = self.__populate(Expense)
-
         return {
-            "month_list": month_list,
-            "supplies_data": supply_list,
-            "expenses_data": expense_list,
+            "month_list": list(calendar.month_name)[1:],
+            "supplies_data": self.__populate(Supply),
+            "expenses_data": self.__populate(Expense),
         }
 
 
@@ -127,4 +123,21 @@ class StatsView(LoginRequiredMixin, TemplateView):
         context["data"] = data
         context["monthly_graph_data"] = MonthlyGraph(data.vehicle)
         context["expenses_category"] = ExpenseByCategory(data.vehicle)
+        return context
+
+
+class AllCostsView(LoginRequiredMixin, TemplateView):
+    template_name = "stats/allcosts.html"
+
+    def get_context_data(self, **kwargs):
+        vehicle = Vehicle.objects.get(slug=self.kwargs["slug"])
+        expenses = Expense.objects.filter(vehicle=vehicle)
+        supplies = Supply.objects.filter(vehicle=vehicle)
+        all_costs = sorted(
+            chain(expenses, supplies), key=lambda instance: instance.date, reverse=True
+        )
+        context = super().get_context_data(**kwargs)
+        context["vehicle"] = vehicle
+        context["all_costs"] = all_costs
+
         return context

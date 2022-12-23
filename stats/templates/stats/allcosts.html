@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+  <h2>{% trans "All costs" %}</h2>
+  {% for cost in all_costs %}<p>{{ cost.date }} - {{ cost }} - {{ cost.price }}</p>{% endfor %}
+{% endblock content %}

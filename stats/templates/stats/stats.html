@@ -2,6 +2,7 @@
 {% load i18n %}
 {% block content %}
   <h2>{% trans "Stats" %}</h2>
+  <a href="{% url 'stats:all_costs' vehicle.slug %}">{% trans "All costs" %}</a>
   <p>Initial mileage: {{ vehicle.mileage }}</p>
   <p>Last mileage statement: {{ data.last_mileage }}</p>
   <p>Number of kilometers travelled: {{ data.kilometers }}</p>
