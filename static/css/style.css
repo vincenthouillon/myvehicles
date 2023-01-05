@@ -76,6 +76,34 @@ a {
   max-height: 200px;
 }
 
+.btn-circle {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  background-color: #0a2c5c;
+  height: 3.75rem;
+  width: 3.75rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 2.5rem;
+  -webkit-box-shadow: 0 0 10px black;
+          box-shadow: 0 0 10px black;
+  margin-bottom: 45px;
+}
+.btn-circle:hover {
+  -webkit-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+          transform: scale(1.05);
+  color: white;
+}
+
 :root {
   --bs-blue: #0a2c5c;
   --bs-indigo: #6610f2;
