@@ -1,5 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import IntegrityError
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -52,6 +55,7 @@ class VehicleCreateView(LoginRequiredMixin, Mixin, CreateView):
         """If the form is valid, save the associated model."""
         self.object = form.save(commit=False)
         self.object.owner = self.request.user
+        self.object.is_active = True
         self.object.save()
         return super().form_valid(form)
 
@@ -59,6 +63,20 @@ class VehicleCreateView(LoginRequiredMixin, Mixin, CreateView):
 class VehicleEditView(LoginRequiredMixin, Mixin, UpdateView):
     form_class = VehicleForm
     template_name = "vehicles/edit.html"
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        if self.request.POST.get("id_is_active"):
+            try:
+                self.object.is_active = True
+                self.object.save()
+            except IntegrityError:
+                messages.warning(
+                    self.request,
+                    _("You already have a vehicle with this name."),
+                    extra_tags="alert alert-warning",
+                )
+        return super().form_valid(form)
 
 
 class VehicleDeleteView(Mixin, DeleteView):

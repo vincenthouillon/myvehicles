@@ -1,23 +1,147 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% block content %}
   {% if vehicle %}
-    <h2>{{ vehicle.name }}</h2>
-    <img src="{{ vehicle.picture.url }}"
-         alt="{% trans "vehicle picture" %}"
-         style="width: 400px">
-  {% else %}
-    <h2>{% trans "New vehicle" %}</h2>
+    <img class="img-form img-fluid"
+         src="{% if not vehicle.picture %}{% static 'img/default.jpeg' %}{% else %}{{ form.picture.value.url }}{% endif %}"
+         alt="image véhicule">
   {% endif %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% trans "Save" %}</button>
-  </form>
-  {% if vehicle %}
-    <form action="{% url 'vehicles:delete' vehicle.slug %}" method="post">
+  <div class="container py-3">
+    <form method="post" enctype="multipart/form-data" class="row g-2">
       {% csrf_token %}
-      <input type="submit" value="{% trans "Delete" %}">
+      <div class="col-12">{{ form.errors }}</div>
+      <div class="form-floating col-md-4">
+        {{ form.name }}
+        {{ form.name.label_tag }}
+      </div>
+      <div class="form-floating col-md-8">
+        {{ form.description }}
+        {{ form.description.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.registration }}
+        {{ form.registration.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.manufacturer }}
+        {{ form.manufacturer.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.model }}
+        {{ form.model.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.fuel_type }}
+        {{ form.fuel_type.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.fuel_unit }}
+        {{ form.fuel_unit.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.tank_size }}
+        {{ form.tank_size.label_tag }}
+      </div>
+      <div class="col-12">
+        <small class="text-muted">{{ form.note.label_tag }}</small>
+        {{ form.note }}
+      </div>
+      <div class="form mx-1 col-md-6">
+        <div class="text-muted small ms-1">{{ form.picture.label_tag }}</div>
+        <small>{{ form.picture }}</small>
+        {% if object.picture %}
+          <small>{% trans "Currently:" %} <a href="{{ object.picture.url }}" target="_blank">{{ object.picture }}</a></small>
+        {% endif %}
+      </div>
+      <legend>
+        {% trans "OPTIONAL" %}
+      </legend>
+      <div class="form-floating col-md-4">
+        {{ form.date_purchase }}
+        {{ form.date_purchase.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.price }}
+        {{ form.price.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.mileage }}
+        {{ form.mileage.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.date_released }}
+        {{ form.date_released.label_tag }}
+      </div>
+      <div class="form-floating col-md-4">
+        {{ form.horsepower }}
+        {{ form.horsepower.label_tag }}
+      </div>
+      <legend class="mt-4">
+        {% trans "STATUS" %}
+      </legend>
+      <div class="form-floating col-md-4">
+        {{ form.inactive_since }}
+        {{ form.inactive_since.label_tag }}
+      </div>
+      <div class="form-check form-switch col-12 ms-2">
+        {{ form.is_active.label }}
+        {% if form.is_active.value %}
+          <input type="checkbox"
+                 class="form-check-input"
+                 name="id_is_active"
+                 checked="checked">
+        {% else %}
+          <input type="checkbox"
+                 class="form-check-input"
+                 name="id_is_active"
+                 value="True">
+        {% endif %}
+      </div>
+      <div class="col-12 text-end mt-2">
+        {% if vehicle %}
+          <a class="btn btn-secondary"
+             href="{% url 'vehicles:home' vehicle.slug %}">{% trans "Back" %}</a>
+        {% else %}
+          <a class="btn btn-secondary" href="{% url 'vehicles:list' %}">{% trans "Cancel" %}</a>
+        {% endif %}
+        {% if vehicle %}
+          <button type="button"
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmDeleteModal">
+            {% trans "Delete" %}
+          </button>
+        {% endif %}
+        <input class="btn btn-primary" type="submit" value="{% trans "Save" %}" />
+      </div>
     </form>
-  {% endif %}
+  </div>
+  <!-- Modal -->
+  <div class="modal fade"
+       id="confirmDeleteModal"
+       tabindex="-1"
+       aria-labelledby="confirmDeleteModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">{% trans "Delete confirmation" %}</h5>
+          <button type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+        </div>
+        <div class="modal-body">{% blocktrans %}Are you sure you want to delete: {{ vehicle }}?{% endblocktrans %}</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+          {% if vehicle %}
+            <form action="{% url 'vehicles:delete' slug=vehicle.slug %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-danger">{% trans "Delete" %}</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
