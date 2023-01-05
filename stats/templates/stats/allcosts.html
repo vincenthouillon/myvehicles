@@ -1,9 +1,68 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <h2>{% trans "All costs" %}</h2>
-  {% for cost in page_obj %}<p>{{ cost.date }} - {{ cost }} - {{ cost.price }}</p>{% endfor %}
-  <hr>
+  <div class="table-responsive">
+    <table class="table table-sm table-allcosts">
+      <thead class="table-light">
+        <tr>
+          <th class="ps-2">
+            <i class="bi bi-dash-square"></i>
+          </th>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Designation" %}</th>
+          <th>{% trans "Mileage" %}</th>
+          <th>{% trans "Amount" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cost in page_obj %}
+          {% url 'expenses:edit' cost.id as url_exp %}
+          {% url 'supplies:edit' cost.id as url_sup %}
+          <tr onclick="document.location = '{% if cost.title %} {{ url_exp }}{% else %} {{ url_sup }} {% endif %}'; ">
+            {% if cost.title %}
+              <td>{{ cost.get_category_display }}</td>
+            {% else %}
+              <td class="ps-2">
+                <i class="bi bi-fuel-pump"></i>
+              </td>
+            {% endif %}
+            <td>{{ cost.date|date:"d/m/Y" }}</td>
+            {% if cost.title %}
+              <td>{{ cost.title }}</td>
+            {% else %}
+              <td>{{ cost.vendor }}</td>
+            {% endif %}
+            <td class="text-end">{{ cost.mileage|floatformat:"0g" }} {{ distance }}</td>
+            <td class="text-end text-nowrap">{{ cost.price|floatformat:"2g" }} {{ devise.symbol }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 text-end">
+    <a class="btn btn-secondary" href="{% url 'stats:stats' vehicle.slug %}">{% trans "Back" %}</a>
+  </div>
+  <div class="fixed-bottom m-3 d-flex flex-row-reverse">
+    <div class="btn-group dropup">
+      <button type="button"
+              class="btn-circle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+        <i class="bi bi-plus"></i>
+      </button>
+      <ul class="dropdown-menu p-2">
+        <li>
+          <a href="{% url 'supplies:add' vehicle.slug %}">{% trans "Supply" %}</a>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+          <a href="{% url 'expenses:add' vehicle.slug %}">{% trans "Expense" %}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="pagination">
     <span class="step-links">
       {% if page_obj.has_previous %}
