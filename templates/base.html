@@ -8,6 +8,7 @@
     <title>MesVehicules</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static './css/font/bootstrap-icons.css' %}">
+    <script src="{% static './js/chart.js' %}"></script>
   </head>
   <body>
     {% include "_navbar.html" %}
@@ -15,7 +16,7 @@
       {% block content %}
       {% endblock content %}
     </div>
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static './js/script.js' %}"></script>
     <script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
   </body>
 </html>

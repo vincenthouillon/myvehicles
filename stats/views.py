@@ -123,6 +123,7 @@ class StatsView(LoginRequiredMixin, TemplateView):
         context["data"] = data
         context["monthly_graph_data"] = MonthlyGraph(data.vehicle)
         context["expenses_category"] = ExpenseByCategory(data.vehicle)
+        context["last_mileage"] = _last_mileage(data.vehicle)
         return context
 
 

@@ -1,25 +1,81 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <h2>{% trans "Stats" %}</h2>
-  <a href="{% url 'stats:all_costs' vehicle.slug %}">{% trans "All costs" %}</a>
-  <p>Initial mileage: {{ vehicle.mileage }}</p>
-  <p>Last mileage statement: {{ data.last_mileage }}</p>
-  <p>Number of kilometers travelled: {{ data.kilometers }}</p>
-  <p>Supplies: {{ data.supply_stat }}</p>
-  <p>Expenses: {{ data.expense_stat }}</p>
-  <hr>
-  <p>Total all costs: {{ data.all_costs }}</p>
-  <p>Supply percentage: {{ data.supply_percent }}</p>
-  <p>Expense percentage: {{ data.expense_percent }}</p>
-  <hr>
-  {{ monthly_graph_data }}
-  <hr>
-  {{ expenses_category.category_labels }}
-  {{ expenses_category.category_data }}
-  <br>
-  {% for data in expenses_category.query_expense %}
-    {{ data }}
-    <br>
-  {% endfor %}
+  <div class="row">
+    <div class="col-md-7 mb-3">
+      <h3>{% trans "Summary of supply expenses" %}</h3>
+      <div class="text-sm">
+        <p class="mb-0">
+          {% trans "Initial mileage:" %} <b>{{ vehicle.mileage|floatformat:"0g" }} {{ distance }}</b>
+        </p>
+        <p class="mb-0">
+          {% trans "Last odometer reading:" %} <b>{{ last_mileage|floatformat:"0g" }} {{ distance }}</b>
+        </p>
+        <p>
+          {% trans "number of kilometers traveled:" %} <b>{{ data.kilometers|floatformat:"0g" }} {{ distance }}</b>
+        </p>
+        <p class="mb-0">
+          {% trans "Number of supplies:" %} <b>{{ data.supply_stat.count }}</b>
+        </p>
+        <p class="mb-0">
+          {% trans "Total supplies:" %} <b>{{ data.supply_stat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+          {% if percent_supply %}
+            {% trans "that is" %} <b>{{ data.supply_percent|floatformat:"2g" }} %</b>
+          {% endif %}
+        </p>
+        <p>
+          {% trans "Total number of liters:" %} <b>{{ data.supply_stat.liter|floatformat:"2g" }} {{ vehicle.fuel_unit }}</b>
+        </p>
+        <p class="mb-0">-</p>
+        <p class="mb-0">
+          {% trans "Number of expenses:" %} <b>{{ data.expense_stat.count }}</b>
+        </p>
+        <p>
+          {% trans "Total expenses:" %} <b>{{ data.expense_stat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+          {% if percent_expense %}
+            {% trans "that is" %} <b>{{ data.expense_percent|floatformat:"2g" }} %</b>
+          {% endif %}
+        </p>
+        <hr>
+        <p>
+          {% trans "Total amount all expenses:" %} <b>{{ data.all_costs|floatformat:"2g" }} {{ devise.symbol }}</b>
+        </p>
+        {% if data.all_costs %}
+          <div class="text-end">
+            <a class="btn btn-sm btn-primary"
+               href="{% url 'stats:all_costs' vehicle.slug %}">{% trans "See all expenses" %}</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-md-4 mb-3 chart-container ms-auto me-auto"
+         style="height:25rem;
+                width:25rem">
+      {% include './partials/chart_allcosts.html' with sup_sum=data.supply_stat.sum exp_sum=data.expense_stats.sum %}
+    </div>
+  </div>
+  <h3>{% trans "Expenses and supplies per month" %}</h3>
+  {% include './partials/chart_amount.html' with data=monthly_graph_data %}
+  <div class="row mt-3">
+    <h3>{% trans "Expenses by category" %}</h3>
+    <div class="col-md-7 mb-3">
+      <div class="text-sm">
+        {% for cat in expenses_category.query_expense %}
+          <p class="m-0">
+            <span class="badge bg-secondary">{{ cat.count }}</span> {{ cat.category }} : <b>{{ cat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+          </p>
+        {% endfor %}
+        <hr>
+        <p class="m-0">
+          <span class="badge bg-secondary">{{ data.expense_stat.count }}</span>
+          {% trans "Total of expenses:" %} <b>{{ data.expense_stat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-4 chart-container ms-auto me-auto"
+         style="width:25rem;
+                height:25rem">
+      {% include './partials/chart_category.html' with category_data=expenses_category.category_data category_labels=expenses_category.category_labels %}
+    </div>
+  </div>
 {% endblock content %}

@@ -1,0 +1,31 @@
+{% load i18n %}
+<canvas id="chartAllCosts" width="400" height="400"></canvas>
+<script>
+const pieAllCosts = document.getElementById('chartAllCosts');
+const myChart = new Chart(pieAllCosts, {
+  type: 'pie',
+  data: {
+    labels: ['{% trans "Supplies" %}', '{% trans "Expenses" %}'],
+    datasets: [{
+        data: [
+        {% if sup_sum %} {{ sup_sum|safe }} {% else %} 0 {% endif %},
+        {% if data.expense_stat.sum %} {{ data.expense_stat.sum|safe }} {% else %} 0 {% endif %} ],
+        backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)'],
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {display:true, position: 'top'},
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            let label = `${context.label}: ${context.parsed.toFixed(2)}`
+            return label;}
+          }
+        }
+      }
+    }
+  });
+</script>
