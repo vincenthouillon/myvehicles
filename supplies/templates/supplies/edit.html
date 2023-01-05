@@ -1,16 +1,105 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <h2>{% trans "Supply form" %}</h2>
-  <form method="post" enctype="multipart/form-data">
+  <h2 class="display-6">{% trans "Supplies" %}</h2>
+  <form method="post" enctype="multipart/form-data" class="row g-2">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% trans "Save" %}</button>
+    <div class="col-12">{{ form.errors }}</div>
+    <div class="form-floating col-md-4">
+      {{ form.mileage }}
+      {{ form.mileage.label_tag }}
+      {% if request.resolver_match.url_name == 'supply-add' %}
+        <div class="text-muted ms-2" style="font-size:0.75rem;">{% trans "Last odometer reading:" %} {{ last_mileage }}</div>
+      {% endif %}
+    </div>
+    <div class="form-floating col-md-4">
+      {{ form.date }}
+      {{ form.date.label_tag }}
+    </div>
+    <div class="form-floating col-md-4">
+      {{ form.vendor }}
+      {{ form.vendor.label_tag }}
+    </div>
+    <div class="form-floating col-md-3">
+      {{ form.fueltype }}
+      {{ form.fueltype.label_tag }}
+    </div>
+    <div class="form-floating col-md-3">
+      {{ form.number_of_liters }}
+      {{ form.number_of_liters.label_tag }}
+    </div>
+    <div class="form-floating col-md-3">
+      {{ form.price }}
+      {{ form.price.label_tag }}
+    </div>
+    <div class="form-check form-switch col-md-3 my-md-auto my-2 mx-md-0 mx-2">
+      {% if form.full_tank.value %}
+        <input type="checkbox"
+               class="form-check-input mx-md-auto me-md-2"
+               name="id_full_tank"
+               checked="checked">
+      {% else %}
+        <input type="checkbox"
+               class="form-check-input mx-md-auto me-md-2"
+               name="id_full_tank"
+               value="True">
+      {% endif %}
+      <div class="text-sm text-muted">{{ form.full_tank.label }}</div>
+    </div>
+    <div class="col-12">
+      <small class="text-muted">{{ form.note.label_tag }}</small>
+      {{ form.note }}
+    </div>
+    <div class="form mx-1 col-12">
+      <div class="text-muted small ms-1">{{ form.attachment.label_tag }}</div>
+      <input type="file"
+             name="attachment"
+             class="form-control form-control-sm"
+             id="id_attachment">
+      {% if supply.attachment %}
+        <small>{% trans "Currently:" %} <a href="{{ supply.attachment.url }}" target="_blank">{{ supply.attachment }}</a></small>
+        <input type="checkbox" name="attachment-clear" id="attachment-clear_id">
+      {% endif %}
+    </div>
+    <div class="col-12 text-end">
+      <a class="btn btn-secondary" href="{{ request.META.HTTP_REFERER }}">{% trans "Cancel" %}</a>
+      {% if supply %}
+        <button type="button"
+                class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteModal">
+          {% trans "Delete" %}
+        </button>
+      {% endif %}
+      <input class="btn btn-primary" type="submit" value="{% trans "Save" %}" />
+    </div>
   </form>
+  <!-- Modal -->
   {% if supply %}
-    <form action="{% url 'supplies:delete' object.pk %}" method="post">
-      {% csrf_token %}
-      <button type="submit">{% trans "Delete" %}</button>
-    </form>
+    <div class="modal fade"
+         id="confirmDeleteModal"
+         tabindex="-1"
+         aria-labelledby="confirmDeleteModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">{% trans "Delete confirmation" %}</h5>
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">{% blocktrans %}Are you sure you want to delete: {{ supply }}?{% endblocktrans %}</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+            <form action="{% url 'supplies:delete' pk=supply.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-danger">{% trans "Delete" %}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   {% endif %}
 {% endblock content %}
