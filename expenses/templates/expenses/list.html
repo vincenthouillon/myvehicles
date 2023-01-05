@@ -2,15 +2,56 @@
 {% load i18n %}
 {% block content %}
   <h2>{% trans "Expense list" %}</h2>
-  {% for expense in page_obj %}
-    <a href="{% url 'expenses:edit' expense.pk %}">{{ expense.date }} - {{ expense }} - {{ expense.vendor }}</a>
-    <br>
-  {% empty %}
-    <p>{% trans "Expenses not found!" %}</p>
-  {% endfor %}
-  <br>
-  <a href="{% url 'expenses:add' vehicle.slug %}">{% trans "Add" %}</a>
-  <hr>
+  <div class="row justify-content-center">
+    <div class="col-lg-8 mb-2">
+      {% for expense in page_obj %}
+        <div class="card mb-2">
+          <div class="card-body p-2">
+            <div class="d-flex flex-row">
+              <div class="d-flex flex-column align-items-center justify-content-center pe-2">
+                <div class="text-primary fw-bold fs-2 text-center" style="min-width:80px">
+                  {{ expense.get_category_display|upper|slice:2 }}
+                </div>
+                <div class="text-primary text-sm">{{ expense.get_category_display }}</div>
+              </div>
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex justify-content-between">
+                  <div class="text-sm">{{ expense.date }}</div>
+                  <div class="h5 mb-0 text-nowrap fw-bold">{{ expense.price }} {{ devise.symbol }}</div>
+                </div>
+                <p class="mb-0 text-primary fw-bold">{{ expense.title }}</p>
+                <p class="mb-0 text-sm">
+                  <i class="bi bi-geo-alt"></i> {{ expense.vendor }}
+                </p>
+                <p class="mb-0 text-secondary text-sm">
+                  {{ expense.mileage }} {{ distance }}
+                  {% if expense.note %}
+                    &middot;
+                    {{ expense.note|truncatechars:40 }}
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+            <div class="align-self-center text-end">
+              <a class="stretched-link" href="{% url 'expenses:edit' expense.id %}"></a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>{% trans "No expenses found." %}</p>
+      {% endfor %}
+      <div class="col-12 text-end">
+        <div class="d-none d-md-block">
+          <a class="btn btn-primary" href="{% url 'expenses:add' vehicle.slug %}">{% trans "Add" %}</a>
+        </div>
+      </div>
+      <div class="fixed-bottom m-3 d-flex flex-row-reverse">
+        <div class="d-sm-block d-md-none">
+          <a href="{% url 'expenses:add' vehicle.slug %}" class="btn-circle"><i class="bi bi-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="pagination">
     <span class="step-links">
       {% if page_obj.has_previous %}

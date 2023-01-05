@@ -1,16 +1,60 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <h2>{% trans "Supply list" %}</h2>
-  {% for supply in page_obj %}
-    <a href="{% url 'supplies:edit' supply.pk %}">{{ supply.date }} - {{ supply.vendor }} - {{ supply.price_per_liters }}</a>
-    <br>
-  {% empty %}
-    <p>{% trans "Supplies not found!" %}</p>
-  {% endfor %}
-  <br>
-  <a href="{% url 'supplies:add' vehicle.slug %}">{% trans "Add" %}</a>
-  <hr>
+  <div class="row justify-content-center">
+    <div class="col-lg-8 mb-2">
+      {% for fuel in page_obj %}
+        <div class="card mb-2">
+          <div class="card-body p-2">
+            <div class="d-flex justify-content-between p-md-2">
+              <div class="d-flex flex-row">
+                <div class="align-self-center me-2 text-center text-primary text-nowrap">
+                  <i class="bi bi-fuel-pump fs-2"></i>
+                  <p class="mb-0 fw-bold">{{ fuel.number_of_liters }} {{ vehicle.fuel_unit }}</p>
+                </div>
+                <div>
+                  <p class="mb-0 text-primary fw-bold">{{ fuel.date }}</p>
+                  <p class="mb-0">
+                    <small>
+                      <i class="bi bi-geo-alt"></i> {{ fuel.vendor }}
+                    </small>
+                  </p>
+                  <p class="mb-0 text-secondary">
+                    <small>
+                      {{ fuel.mileage }} {{ distance }}
+                      {% if fuel.note %}
+                        &middot;
+                        {{ fuel.note|truncatechars:40 }}
+                      {% endif %}
+                    </p>
+                  </small>
+                </div>
+              </div>
+              <div class="align-self-center text-center text-nowrap">
+                <h2 class="h3 mb-0">{{ fuel.price }} {{ devise.symbol }}</h2>
+                <small class="text-secondary">±{{ fuel.price_per_liters }} {{ devise.symbol }}/{{ vehicle.fuel_unit }}</small>
+              </div>
+            </div>
+            <div class="align-self-center text-end">
+              <a class="stretched-link" href="{% url 'supplies:edit' fuel.id %}"></a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>{% trans "No supplies found." %}</p>
+      {% endfor %}
+      <div class="col-12 text-end">
+        <div class="d-none d-md-block">
+          <a class="btn btn-primary" href="{% url 'supplies:add' vehicle.slug %}">{% trans "Add" %}</a>
+        </div>
+      </div>
+      <div class="fixed-bottom m-3 d-flex flex-row-reverse">
+        <div class="d-sm-block d-md-none">
+          <a href="{% url 'supplies:add' vehicle.slug %}" class="btn-circle"><i class="bi bi-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="pagination">
     <span class="step-links">
       {% if page_obj.has_previous %}
