@@ -64,5 +64,5 @@ class SupplyEditView(LoginRequiredMixin, Mixin, UpdateView):
         return Supply.objects.filter(vehicle__owner=self.request.user)
 
 
-class SupplyDeleteView(Mixin, DeleteView):
+class SupplyDeleteView(LoginRequiredMixin, Mixin, DeleteView):
     model = Supply

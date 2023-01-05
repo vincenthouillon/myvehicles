@@ -64,5 +64,5 @@ class ExpenseEditView(LoginRequiredMixin, Mixin, UpdateView):
         return Expense.objects.filter(vehicle__owner=self.request.user)
 
 
-class ExpenseDeleteView(Mixin, DeleteView):
+class ExpenseDeleteView(LoginRequiredMixin, Mixin, DeleteView):
     model = Expense

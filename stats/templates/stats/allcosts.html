@@ -2,5 +2,23 @@
 {% load i18n %}
 {% block content %}
   <h2>{% trans "All costs" %}</h2>
-  {% for cost in all_costs %}<p>{{ cost.date }} - {{ cost }} - {{ cost.price }}</p>{% endfor %}
+  {% for cost in page_obj %}<p>{{ cost.date }} - {{ cost }} - {{ cost.price }}</p>{% endfor %}
+  <hr>
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; {% trans "first" %}</a>
+        <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
+      {% endif %}
+      <span class="current">
+        {% blocktrans with number=page_obj.number num_pages=page_obj.paginator.num_pages %}
+        Page {{ number }} of {{ num_pages }}.
+        {% endblocktrans %}
+      </span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
 {% endblock content %}

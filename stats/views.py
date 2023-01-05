@@ -6,7 +6,7 @@ from itertools import chain
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Sum
 from django.utils import timezone
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 
 from expenses.models import Expense
 from supplies.models import Supply
@@ -126,18 +126,23 @@ class StatsView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class AllCostsView(LoginRequiredMixin, TemplateView):
+class AllCostsView(LoginRequiredMixin, ListView):
     template_name = "stats/allcosts.html"
+    paginate_by = 20
 
-    def get_context_data(self, **kwargs):
-        vehicle = Vehicle.objects.get(slug=self.kwargs["slug"])
-        expenses = Expense.objects.filter(vehicle=vehicle)
-        supplies = Supply.objects.filter(vehicle=vehicle)
+    def get(self, request, *args, **kwargs):
+        self.vehicle = Vehicle.objects.get(slug=self.kwargs["slug"])
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        expenses = Expense.objects.filter(vehicle=self.vehicle)
+        supplies = Supply.objects.filter(vehicle=self.vehicle)
         all_costs = sorted(
             chain(expenses, supplies), key=lambda instance: instance.date, reverse=True
         )
-        context = super().get_context_data(**kwargs)
-        context["vehicle"] = vehicle
-        context["all_costs"] = all_costs
+        return all_costs
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["vehicle"] = self.vehicle
         return context
