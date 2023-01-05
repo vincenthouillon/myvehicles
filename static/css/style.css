@@ -76,6 +76,10 @@ a {
   max-height: 200px;
 }
 
+.table-allcosts {
+  font-size: 0.875rem;
+}
+
 .btn-circle {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -96,6 +100,7 @@ a {
   -webkit-box-shadow: 0 0 10px black;
           box-shadow: 0 0 10px black;
   margin-bottom: 45px;
+  outline: none;
 }
 .btn-circle:hover {
   -webkit-transform: scale(1.05);

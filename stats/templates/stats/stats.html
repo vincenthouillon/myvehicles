@@ -12,7 +12,7 @@
           {% trans "Last odometer reading:" %} <b>{{ last_mileage|floatformat:"0g" }} {{ distance }}</b>
         </p>
         <p>
-          {% trans "number of kilometers traveled:" %} <b>{{ data.kilometers|floatformat:"0g" }} {{ distance }}</b>
+          {% trans "Number of kilometers traveled:" %} <b>{{ data.kilometers|floatformat:"0g" }} {{ distance }}</b>
         </p>
         <p class="mb-0">
           {% trans "Number of supplies:" %} <b>{{ data.supply_stat.count }}</b>
@@ -54,7 +54,7 @@
       {% include './partials/chart_allcosts.html' with sup_sum=data.supply_stat.sum exp_sum=data.expense_stats.sum %}
     </div>
   </div>
-  <h3>{% trans "Expenses and supplies per month" %}</h3>
+  <h3>{% trans "Current year's expenses and supplies by month" %}</h3>
   {% include './partials/chart_amount.html' with data=monthly_graph_data %}
   <div class="row mt-3">
     <h3>{% trans "Expenses by category" %}</h3>
