@@ -10,7 +10,11 @@
   </head>
   <body>
     {% include "_navbar.html" %}
-    {% block content %}
-    {% endblock content %}
+    <div class="container py-4">
+      {% block content %}
+      {% endblock content %}
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
   </body>
 </html>

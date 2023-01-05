@@ -1,22 +1,56 @@
-{% load i18n %}
-<nav>
-  {% if user.is_authenticated %}
-    <a href="{% url 'vehicles:list' %}">MesVehicules</a>
-    {% if vehicle %}
-      &middot;
-      <a href="{% url 'vehicles:home' vehicle.slug %}"><b>{{ vehicle.name }}</b></a>
-      <a href="{% url 'supplies:list' vehicle.slug %}">{% trans "Supplies" %}</a>
-      <a href="{% url 'expenses:list' vehicle.slug %}">{% trans "Expenses" %}</a>
-      <a href="{% url 'vehicles:edit' vehicle.slug %}">{% trans "Informations" %}</a>
-      <a href="{% url 'stats:stats' vehicle.slug %}">{% trans "Stats" %}</a>
-    {% endif %}
-    &middot;
-    <a href="{% url 'accounts:profile' request.user.id %}">{% trans "Profile" %}</a>
-    <a href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a>
-  {% else %}
-    &middot;
-    <a href="{% url 'accounts:login' %}">{% trans "Sign In" %}</a>
-    <a href="{% url 'accounts:register' %}">{% trans "Sign up" %}</a>
-  {% endif %}
+{% load i18n static %}
+<nav id="navbarMesVehicules"
+     class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand text-condensed text-white"
+       href="{% url 'vehicles:list' %}">
+      <img src="{% static 'img/favicon.svg' %}"
+           alt="logo MesVehicules"
+           width="28"
+           class="mb-2">
+    MesVehicules</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbar"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            id="menu_button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-sm">
+        {% if vehicle.slug %}
+          <li class="nav-item">
+            <a class="nav-link bg-light text-primary rounded mt-4 mt-lg-0 ps-2"
+               href="{% url 'vehicles:home' vehicle.slug %}">{{ vehicle }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'supplies:list' vehicle.slug %}">{% trans "Supplies" %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'expenses:list' vehicle.slug %}">{% trans "Expenses" %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'vehicles:edit' vehicle.slug %}">{% trans "Informations" %}</a>
+          </li>
+          {% if vehicle.fuels.count or vehicle.expenses.count %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'stats:stats' vehicle.slug %}">{% trans "Stats" %}</a>
+            </li>
+          {% endif %}
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-sm">
+        <hr class="text-light">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:profile' request.user.id %}">{% trans "My account" %}</a>
+        </li>
+        <li class="nav-item mt-2 mt-md-0">
+          <a class="btn btn-outline-light" href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
-<hr>
