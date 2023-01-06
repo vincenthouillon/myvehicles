@@ -23,7 +23,7 @@
           <div class="text-start">{{ form.as_p }}</div>
           <div class="text-end">
             {% if signups_allowed %}
-              <a href="{% url 'register' %}">{% trans "Create an account" %}</a>
+              <a href="{% url 'accounts:register' %}">{% trans "Create an account" %}</a>
             {% endif %}
             <button class="btn btn-primary ms-3" type="submit">{% trans "Login" %}</button>
             <div class="mt-3">

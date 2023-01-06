@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-#jf@h*+l400ijf5yu@o32v*mg*qi(s-^zhs3o27-*5%8%evie1"
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", "django-insecure-#jf@h*+l400ijf5yu@o32v*mg*qi(s-^zhs3o27-*5%8%evie1"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(
+    os.environ.get("DEBUG", "false").lower() in ("true", "1", "yes")  # type:ignore
+)
 
-ALLOWED_HOSTS = []
+_mesvehicules_url = os.environ.get("MESVEHICULES_URL")
+_mesvehicules_uri = urlparse(_mesvehicules_url)
+if _mesvehicules_url:
+    ALLOWED_HOSTS = [_mesvehicules_uri.hostname] + ["localhost"]
+    CSRF_TRUSTED_ORIGINS = [_mesvehicules_url]
+else:
+    ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -126,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = "/static/"
 
 PRIVATE_STORAGE_ROOT = "./media/"
 PRIVATE_STORAGE_AUTH_FUNCTION = "private_storage.permissions.allow_authenticated"
@@ -136,3 +149,8 @@ PRIVATE_STORAGE_AUTH_FUNCTION = "private_storage.permissions.allow_authenticated
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SIGNUPS_ALLOWED = bool(
+    os.environ.get("SIGNUPS_ALLOWED", "false").lower()
+    in ("true", "1", "yes")  # type:ignore
+)

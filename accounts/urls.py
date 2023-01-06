@@ -10,6 +10,7 @@ Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 """
+from django.conf import settings
 from django.urls import path
 
 from .views import *
@@ -17,7 +18,6 @@ from .views import *
 app_name = "accounts"
 
 urlpatterns = [
-    path("register/", UserRegsiterView.as_view(), name="register"),
     path("login/", UserLoginView.as_view(), name="login"),
     path("logout/", UserLogoutView.as_view(), name="logout"),
     path("profile/", profile, name="profile"),
@@ -34,3 +34,8 @@ urlpatterns = [
         name="password_reset_done",
     ),
 ]
+
+if settings.SIGNUPS_ALLOWED:
+    urlpatterns += [
+        path("signup/", UserRegsiterView.as_view(), name="register"),
+    ]
