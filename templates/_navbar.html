@@ -45,7 +45,7 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-sm">
         <hr class="text-light">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:profile' request.user.id %}">{% trans "My account" %}</a>
+          <a class="nav-link" href="{% url 'accounts:profile' %}">{% trans "My account" %}</a>
         </li>
         <li class="nav-item mt-2 mt-md-0">
           <a class="btn btn-outline-light" href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a>
