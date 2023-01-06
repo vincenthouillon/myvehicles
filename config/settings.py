@@ -97,7 +97,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "database" / "db.sqlite3",
     }
 }
 
@@ -149,6 +149,8 @@ PRIVATE_STORAGE_AUTH_FUNCTION = "private_storage.permissions.allow_authenticated
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SUPER_USER = {"username": "changeme", "password": "changeme"}
 
 SIGNUPS_ALLOWED = bool(
     os.environ.get("SIGNUPS_ALLOWED", "false").lower()
