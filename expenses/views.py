@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, View
 
+from accounts.models import AppSettings
+from stats.views import _last_mileage
 from vehicles.models import Vehicle
 
 from .forms import ExpenseForm
@@ -42,18 +43,25 @@ class ExpenseListView(LoginRequiredMixin, Mixin, ListView):
             vehicle__slug=self.kwargs["slug"], vehicle__owner=self.request.user
         )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["settings"] = AppSettings.objects.get(user=self.request.user)
+        return context
+
 
 class ExpenseCreateView(LoginRequiredMixin, Mixin, CreateView):
     form_class = ExpenseForm
     template_name = "expenses/edit.html"
 
-    def get(self, *args, **kwargs):
-        get_object_or_404(Vehicle, slug=self.kwargs["slug"], owner=self.request.user)
-        return super().get(*args, **kwargs)
-
     def form_valid(self, form):
         form.instance.vehicle = Vehicle.objects.get(slug=self.kwargs["slug"])
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        vehicle = Vehicle.objects.get(slug=self.kwargs["slug"], owner=self.request.user)
+        context = super().get_context_data(**kwargs)
+        context["last_mileage"] = _last_mileage(vehicle)
+        return context
 
 
 class ExpenseEditView(LoginRequiredMixin, Mixin, UpdateView):

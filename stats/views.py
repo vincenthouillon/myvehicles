@@ -8,6 +8,7 @@ from django.db.models import Count, Sum
 from django.utils import timezone
 from django.views.generic import ListView, TemplateView
 
+from accounts.models import AppSettings
 from expenses.models import Expense
 from supplies.models import Supply
 from vehicles.models import Vehicle
@@ -124,6 +125,7 @@ class StatsView(LoginRequiredMixin, TemplateView):
         context["monthly_graph_data"] = MonthlyGraph(data.vehicle)
         context["expenses_category"] = ExpenseByCategory(data.vehicle)
         context["last_mileage"] = _last_mileage(data.vehicle)
+        context["settings"] = AppSettings.objects.get(user=self.request.user)
         return context
 
 
@@ -146,4 +148,5 @@ class AllCostsView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["vehicle"] = self.vehicle
+        context["settings"] = AppSettings.objects.get(user=self.request.user)
         return context

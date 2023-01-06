@@ -7,19 +7,19 @@
         <h3>{% trans "Summary of supply expenses" %}</h3>
         <div class="text-sm">
           <p class="mb-0">
-            {% trans "Initial mileage:" %} <b>{{ vehicle.mileage|floatformat:"0g" }} {{ distance }}</b>
+            {% trans "Initial mileage:" %} <b>{{ vehicle.mileage|floatformat:"0g" }} {{ settings.distance_unit }}</b>
           </p>
           <p class="mb-0">
-            {% trans "Last odometer reading:" %} <b>{{ last_mileage|floatformat:"0g" }} {{ distance }}</b>
+            {% trans "Last odometer reading:" %} <b>{{ last_mileage|floatformat:"0g" }} {{ settings.distance_unit }}</b>
           </p>
           <p>
-            {% trans "Number of kilometers traveled:" %} <b>{{ data.kilometers|floatformat:"0g" }} {{ distance }}</b>
+            {% trans "Number of kilometers traveled:" %} <b>{{ data.kilometers|floatformat:"0g" }} {{ settings.distance_unit }}</b>
           </p>
           <p class="mb-0">
             {% trans "Number of supplies:" %} <b>{{ data.supply_stat.count }}</b>
           </p>
           <p class="mb-0">
-            {% trans "Total supplies:" %} <b>{{ data.supply_stat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+            {% trans "Total supplies:" %} <b>{{ data.supply_stat.sum|floatformat:"2g" }} {{ settings.currency.symbol }}</b>
             {% if percent_supply %}
               {% trans "that is" %} <b>{{ data.supply_percent|floatformat:"2g" }} %</b>
             {% endif %}
@@ -32,14 +32,14 @@
             {% trans "Number of expenses:" %} <b>{{ data.expense_stat.count }}</b>
           </p>
           <p>
-            {% trans "Total expenses:" %} <b>{{ data.expense_stat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+            {% trans "Total expenses:" %} <b>{{ data.expense_stat.sum|floatformat:"2g" }} {{ settings.currency.symbol }}</b>
             {% if percent_expense %}
               {% trans "that is" %} <b>{{ data.expense_percent|floatformat:"2g" }} %</b>
             {% endif %}
           </p>
           <hr>
           <p>
-            {% trans "Total amount all expenses:" %} <b>{{ data.all_costs|floatformat:"2g" }} {{ devise.symbol }}</b>
+            {% trans "Total amount all expenses:" %} <b>{{ data.all_costs|floatformat:"2g" }} {{ settings.currency.symbol }}</b>
           </p>
           {% if data.all_costs %}
             <div class="text-end">
@@ -63,13 +63,13 @@
         <div class="text-sm">
           {% for cat in expenses_category.query_expense %}
             <p class="m-0">
-              <span class="badge bg-secondary">{{ cat.count }}</span> {{ cat.category }} : <b>{{ cat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+              <span class="badge bg-secondary">{{ cat.count }}</span> {{ cat.category }} : <b>{{ cat.sum|floatformat:"2g" }} {{ settings.currency.symbol }}</b>
             </p>
           {% endfor %}
           <hr>
           <p class="m-0">
             <span class="badge bg-secondary">{{ data.expense_stat.count }}</span>
-            {% trans "Total of expenses:" %} <b>{{ data.expense_stat.sum|floatformat:"2g" }} {{ devise.symbol }}</b>
+            {% trans "Total of expenses:" %} <b>{{ data.expense_stat.sum|floatformat:"2g" }} {{ settings.currency.symbol }}</b>
           </p>
         </div>
       </div>

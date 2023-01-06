@@ -15,7 +15,7 @@
                 <div class="d-flex justify-content-between">
                   <div class="mb-1">{{ supply.date|date:"d/m/Y" }}</div>
                   <div class="mb-1 me-auto mx-2">{{ supply.vendor }}</div>
-                  <div class="mb-1 text-nowrap">{{ supply.price }} {{ devise.symbol }}</div>
+                  <div class="mb-1 text-nowrap">{{ supply.price }} {{ settings.currency.symbol }}</div>
                 </div>
               </a>
             {% endfor %}
@@ -32,7 +32,7 @@
                 <div class="d-flex justify-content-between">
                   <div class="mb-1">{{ expense.date|date:"d/m/Y" }}</div>
                   <div class="mb-1 me-auto mx-2">{{ expense.title }}</div>
-                  <div class="mb-1 text-nowrap">{{ expense.price }} {{ devise.symbol }}</div>
+                  <div class="mb-1 text-nowrap">{{ expense.price }} {{ settings.currency.symbol }}</div>
                 </div>
               </a>
             {% endfor %}
