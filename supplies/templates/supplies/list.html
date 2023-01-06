@@ -1,75 +1,77 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <div class="row justify-content-center">
-    <div class="col-lg-8 mb-2">
-      {% for fuel in page_obj %}
-        <div class="card mb-2">
-          <div class="card-body p-2">
-            <div class="d-flex justify-content-between p-md-2">
-              <div class="d-flex flex-row">
-                <div class="align-self-center me-2 text-center text-primary text-nowrap">
-                  <i class="bi bi-fuel-pump fs-2"></i>
-                  <p class="mb-0 fw-bold">{{ fuel.number_of_liters }} {{ vehicle.fuel_unit }}</p>
-                </div>
-                <div>
-                  <p class="mb-0 text-primary fw-bold">{{ fuel.date }}</p>
-                  <p class="mb-0">
-                    <small>
-                      <i class="bi bi-geo-alt"></i> {{ fuel.vendor }}
-                    </small>
-                  </p>
-                  <p class="mb-0 text-secondary">
-                    <small>
-                      {{ fuel.mileage }} {{ distance }}
-                      {% if fuel.note %}
-                        &middot;
-                        {{ fuel.note|truncatechars:40 }}
-                      {% endif %}
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 mb-2">
+        {% for fuel in page_obj %}
+          <div class="card mb-2">
+            <div class="card-body p-2">
+              <div class="d-flex justify-content-between p-md-2">
+                <div class="d-flex flex-row">
+                  <div class="align-self-center me-2 text-center text-primary text-nowrap">
+                    <i class="bi bi-fuel-pump fs-2"></i>
+                    <p class="mb-0 fw-bold">{{ fuel.number_of_liters }} {{ vehicle.fuel_unit }}</p>
+                  </div>
+                  <div>
+                    <p class="mb-0 text-primary fw-bold">{{ fuel.date }}</p>
+                    <p class="mb-0">
+                      <small>
+                        <i class="bi bi-geo-alt"></i> {{ fuel.vendor }}
+                      </small>
                     </p>
-                  </small>
+                    <p class="mb-0 text-secondary">
+                      <small>
+                        {{ fuel.mileage }} {{ distance }}
+                        {% if fuel.note %}
+                          &middot;
+                          {{ fuel.note|truncatechars:40 }}
+                        {% endif %}
+                      </p>
+                    </small>
+                  </div>
+                </div>
+                <div class="align-self-center text-center text-nowrap">
+                  <h2 class="h3 mb-0">{{ fuel.price }} {{ devise.symbol }}</h2>
+                  <small class="text-secondary">±{{ fuel.price_per_liters }} {{ devise.symbol }}/{{ vehicle.fuel_unit }}</small>
                 </div>
               </div>
-              <div class="align-self-center text-center text-nowrap">
-                <h2 class="h3 mb-0">{{ fuel.price }} {{ devise.symbol }}</h2>
-                <small class="text-secondary">±{{ fuel.price_per_liters }} {{ devise.symbol }}/{{ vehicle.fuel_unit }}</small>
+              <div class="align-self-center text-end">
+                <a class="stretched-link" href="{% url 'supplies:edit' fuel.id %}"></a>
               </div>
-            </div>
-            <div class="align-self-center text-end">
-              <a class="stretched-link" href="{% url 'supplies:edit' fuel.id %}"></a>
             </div>
           </div>
+        {% empty %}
+          <p>{% trans "No supplies found." %}</p>
+        {% endfor %}
+        <div class="col-12 text-end">
+          <div class="d-none d-md-block">
+            <a class="btn btn-primary" href="{% url 'supplies:add' vehicle.slug %}">{% trans "Add" %}</a>
+          </div>
         </div>
-      {% empty %}
-        <p>{% trans "No supplies found." %}</p>
-      {% endfor %}
-      <div class="col-12 text-end">
-        <div class="d-none d-md-block">
-          <a class="btn btn-primary" href="{% url 'supplies:add' vehicle.slug %}">{% trans "Add" %}</a>
-        </div>
-      </div>
-      <div class="fixed-bottom m-3 d-flex flex-row-reverse">
-        <div class="d-sm-block d-md-none">
-          <a href="{% url 'supplies:add' vehicle.slug %}" class="btn-circle"><i class="bi bi-plus"></i></a>
+        <div class="fixed-bottom m-3 d-flex flex-row-reverse">
+          <div class="d-sm-block d-md-none">
+            <a href="{% url 'supplies:add' vehicle.slug %}" class="btn-circle"><i class="bi bi-plus"></i></a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="pagination text-center">
-    <span class="step-links">
-      {% if page_obj.has_previous %}
-        <a href="?page=1">&laquo; {% trans "first" %}</a>
-        <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
-      {% endif %}
-      <span class="current">
-        {% blocktrans with number=page_obj.number num_pages=page_obj.paginator.num_pages %}
+    <div class="pagination text-center">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; {% trans "first" %}</a>
+          <a href="?page={{ page_obj.previous_page_number }}">{% trans "previous" %}</a>
+        {% endif %}
+        <span class="current">
+          {% blocktrans with number=page_obj.number num_pages=page_obj.paginator.num_pages %}
         Page {{ number }} of {{ num_pages }}.
         {% endblocktrans %}
+        </span>
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} &raquo;</a>
+        {% endif %}
       </span>
-      {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">{% trans "next" %}</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "last" %} &raquo;</a>
-      {% endif %}
-    </span>
+    </div>
   </div>
 {% endblock content %}

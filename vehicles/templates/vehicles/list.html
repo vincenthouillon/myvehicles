@@ -1,42 +1,44 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block content %}
-  <div class="row justify-content-center">
-    {% for vehicle in vehicle_list %}
-      <div class="col-lg-4">
-        <div class="card card-vehicle mb-3">
-          {% if vehicle.picture %}
-            <img src="{{ vehicle.picture.url }}"
-                 class="card-img-top {% if not vehicle.is_active %}inactive{% endif %} "
-                 alt="image {{ vehicle }}">
-          {% else %}
-            <img src="{% static 'img/default.jpeg' %}"
-                 class="card-img-top {% if not vehicle.is_active %}inactive{% endif %} "
-                 alt="image vehicule">
-          {% endif %}
-          <div class="card-body">
-            <h5 class="card-title m-0">{{ vehicle }}</h5>
-            <small class="card-text">{{ vehicle.registration }}</small>
-            <p class="card-text">{{ vehicle.description }}</p>
-            <a href="{% url 'vehicles:home' vehicle.slug %}" class="stretched-link"></a>
-          </div>
-          <div class="card-footer text-end">
-            {% if vehicle.is_active %}
-              {% trans "active" %}
-              <i class="bi bi-toggle-on"></i>
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      {% for vehicle in vehicle_list %}
+        <div class="col-lg-4">
+          <div class="card card-vehicle mb-3">
+            {% if vehicle.picture %}
+              <img src="{{ vehicle.picture.url }}"
+                   class="card-img-top {% if not vehicle.is_active %}inactive{% endif %} "
+                   alt="image {{ vehicle }}">
             {% else %}
-              {% trans "inactive" %}
-              <i class="bi bi-toggle-off"></i>
+              <img src="{% static 'img/default.jpeg' %}"
+                   class="card-img-top {% if not vehicle.is_active %}inactive{% endif %} "
+                   alt="image vehicule">
             {% endif %}
+            <div class="card-body">
+              <h5 class="card-title m-0">{{ vehicle }}</h5>
+              <small class="card-text">{{ vehicle.registration }}</small>
+              <p class="card-text">{{ vehicle.description }}</p>
+              <a href="{% url 'vehicles:home' vehicle.slug %}" class="stretched-link"></a>
+            </div>
+            <div class="card-footer text-end">
+              {% if vehicle.is_active %}
+                {% trans "active" %}
+                <i class="bi bi-toggle-on"></i>
+              {% else %}
+                {% trans "inactive" %}
+                <i class="bi bi-toggle-off"></i>
+              {% endif %}
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
-    <div class="col-lg-4">
-      <div class="card card-add mb-3">
-        <div class="card-body">
-          <a class="display-1 stretched-link" href="{% url 'vehicles:add' %}"><i class="bi bi-plus-circle-fill"></i></a>
-          <p>{% trans "Add vehicle" %}</p>
+      {% endfor %}
+      <div class="col-lg-4">
+        <div class="card card-add mb-3">
+          <div class="card-body">
+            <a class="display-1 stretched-link" href="{% url 'vehicles:add' %}"><i class="bi bi-plus-circle-fill"></i></a>
+            <p>{% trans "Add vehicle" %}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,62 +1,64 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <div class="row justify-content-center">
-    <div class="col-xl-6 col-md-12 mb-2">
-      <div class="text-center m-2">
-        <a class="btn btn-primary" href="{% url 'supplies:list' vehicle.slug %}"><i class="bi bi-fuel-pump"></i> {% trans "Supplies" %}</a>
-      </div>
-      <div class="card mb-4" style="font-size:0.875rem">
-        <div class="card-body p-2">
-          <p class="card-title text-muted mb-1">{% trans "The last 10 refuelings" %}</p>
-          {% for supply in supplies %}
-            <a href="{% url 'supplies:edit' supply.pk %}">
-              <div class="d-flex justify-content-between">
-                <div class="mb-1">{{ supply.date|date:"d/m/Y" }}</div>
-                <div class="mb-1 me-auto mx-2">{{ supply.vendor }}</div>
-                <div class="mb-1 text-nowrap">{{ supply.price }} {{ devise.symbol }}</div>
-              </div>
-            </a>
-          {% endfor %}
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-md-12 mb-2">
+        <div class="text-center m-2">
+          <a class="btn btn-primary" href="{% url 'supplies:list' vehicle.slug %}"><i class="bi bi-fuel-pump"></i> {% trans "Supplies" %}</a>
         </div>
-      </div>
-      <div class="text-center m-2">
-        <a class="btn btn-primary" href="{% url 'expenses:list' vehicle.slug %}"><i class="bi bi-cart"></i> {% trans "Expenses" %}</a>
-      </div>
-      <div class="card mb-4" style="font-size:0.875rem">
-        <div class="card-body p-2">
-          <p class="card-title text-muted mb-1">{% trans "The last 10 expenses" %}</p>
-          {% for expense in expenses %}
-            <a href="{% url 'expenses:edit' expense.pk %}">
-              <div class="d-flex justify-content-between">
-                <div class="mb-1">{{ expense.date|date:"d/m/Y" }}</div>
-                <div class="mb-1 me-auto mx-2">{{ expense.title }}</div>
-                <div class="mb-1 text-nowrap">{{ expense.price }} {{ devise.symbol }}</div>
-              </div>
-            </a>
-          {% endfor %}
+        <div class="card mb-4" style="font-size:0.875rem">
+          <div class="card-body p-2">
+            <p class="card-title text-muted mb-1">{% trans "The last 10 refuelings" %}</p>
+            {% for supply in supplies %}
+              <a href="{% url 'supplies:edit' supply.pk %}">
+                <div class="d-flex justify-content-between">
+                  <div class="mb-1">{{ supply.date|date:"d/m/Y" }}</div>
+                  <div class="mb-1 me-auto mx-2">{{ supply.vendor }}</div>
+                  <div class="mb-1 text-nowrap">{{ supply.price }} {{ devise.symbol }}</div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="text-center m-2">
+          <a class="btn btn-primary" href="{% url 'expenses:list' vehicle.slug %}"><i class="bi bi-cart"></i> {% trans "Expenses" %}</a>
+        </div>
+        <div class="card mb-4" style="font-size:0.875rem">
+          <div class="card-body p-2">
+            <p class="card-title text-muted mb-1">{% trans "The last 10 expenses" %}</p>
+            {% for expense in expenses %}
+              <a href="{% url 'expenses:edit' expense.pk %}">
+                <div class="d-flex justify-content-between">
+                  <div class="mb-1">{{ expense.date|date:"d/m/Y" }}</div>
+                  <div class="mb-1 me-auto mx-2">{{ expense.title }}</div>
+                  <div class="mb-1 text-nowrap">{{ expense.price }} {{ devise.symbol }}</div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="fixed-bottom m-3 d-flex flex-row-reverse">
-    <div class="btn-group dropup">
-      <button type="button"
-              class="btn-circle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-        <i class="bi bi-plus"></i>
-      </button>
-      <ul class="dropdown-menu p-2">
-        <li>
-          <a href="{% url 'supplies:add' vehicle.slug %}">{% trans "Supply" %}</a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li>
-          <a href="{% url 'expenses:add' vehicle.slug %}">{% trans "Expense" %}</a>
-        </li>
-      </ul>
+    <div class="fixed-bottom m-3 d-flex flex-row-reverse">
+      <div class="btn-group dropup">
+        <button type="button"
+                class="btn-circle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+          <i class="bi bi-plus"></i>
+        </button>
+        <ul class="dropdown-menu p-2">
+          <li>
+            <a href="{% url 'supplies:add' vehicle.slug %}">{% trans "Supply" %}</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a href="{% url 'expenses:add' vehicle.slug %}">{% trans "Expense" %}</a>
+          </li>
+        </ul>
+      </div>
     </div>
   {% endblock content %}
