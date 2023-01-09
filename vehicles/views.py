@@ -46,6 +46,19 @@ class VehicleListView(LoginRequiredMixin, Mixin, ListView):
     model = Vehicle
     template_name = "vehicles/list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.username == "changeme":  # type:ignore
+            messages.add_message(
+                self.request,
+                messages.ERROR,
+                _(
+                    "You need to change the username and password of the `changeme` account."
+                ),
+                extra_tags="alert alert-danger",
+            )
+        return context
+
 
 class VehicleCreateView(LoginRequiredMixin, Mixin, CreateView):
     form_class = VehicleForm

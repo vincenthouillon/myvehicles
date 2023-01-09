@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-09 16:36+0100\n"
+"POT-Creation-Date: 2023-01-09 18:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Vincent Houillon <vhouillon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -699,6 +699,10 @@ msgstr "inactif"
 msgid "Add vehicle"
 msgstr "Ajouter un véhicule"
 
-#: vehicles/views.py:76
+#: vehicles/views.py:56
+msgid "You need to change the username and password of the `changeme` account."
+msgstr "Vous devez modifier l'identifiant et le mot de passe du compte `changeme`."
+
+#: vehicles/views.py:89
 msgid "You already have a vehicle with this name."
 msgstr "Vous avez déjà un vehicule avec ce nom."
