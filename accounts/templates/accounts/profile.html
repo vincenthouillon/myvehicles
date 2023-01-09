@@ -9,20 +9,20 @@
         <form method="post" class="row g-2">
           {% csrf_token %}
           <div class="form-floating">
-            {{ user_form.username }}
-            {{ user_form.username.label_tag }}
+            {{ form.username }}
+            {{ form.username.label_tag }}
           </div>
           <div class="form-floating">
-            {{ user_form.last_name }}
-            {{ user_form.last_name.label_tag }}
+            {{ form.last_name }}
+            {{ form.last_name.label_tag }}
           </div>
           <div class="form-floating">
-            {{ user_form.first_name }}
-            {{ user_form.first_name.label_tag }}
+            {{ form.first_name }}
+            {{ form.first_name.label_tag }}
           </div>
           <div class="form-floating">
-            {{ user_form.email }}
-            {{ user_form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.label_tag }}
           </div>
           <div class="col-12 text-sm">
             {% url 'accounts:password_change' as the_url %}
@@ -43,12 +43,12 @@ Raw passwords are not stored, so there is no way to see this user’s password, 
           <h2 class="text-center display-6 mb-4">{% trans "Settings" %}</h2>
           <div class="row g-2">
             <div class="form-floating">
-              {{ app_form.currency }}
-              {{ app_form.currency.label_tag }}
+              {{ form.currency }}
+              {{ form.currency.label_tag }}
             </div>
             <div class="form-floating">
-              {{ app_form.distance_unit }}
-              {{ app_form.distance_unit.label_tag }}
+              {{ form.distance_unit }}
+              {{ form.distance_unit.label_tag }}
             </div>
           </div>
         </div>

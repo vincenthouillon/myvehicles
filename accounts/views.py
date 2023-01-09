@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
     LoginView,
@@ -8,12 +8,10 @@ from django.contrib.auth.views import (
     PasswordResetDoneView,
     PasswordResetView,
 )
-from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from .forms import (
-    AppSettingsForm,
     PwdChangeForm,
     PwdResetConfirmForm,
     PwdResetForm,
@@ -21,7 +19,7 @@ from .forms import (
     SigninForm,
     UserForm,
 )
-from .models import AppSettings, User
+from .models import User
 
 
 class UserRegsiterView(CreateView):
@@ -66,29 +64,10 @@ class UserPasswordResetDoneView(PasswordResetDoneView):
     template_name = "accounts/password_reset_done.html"
 
 
-@login_required
-def profile(request):
-    """The code below creates a view for the profile page containing
-    an account update form and an application settings form.
-    """
-    user_form = UserForm(request.POST or None, instance=request.user)
+class Profile(LoginRequiredMixin, UpdateView):
+    template_name = "accounts/profile.html"
+    model = get_user_model()
+    form_class = UserForm
 
-    try:
-        instance_app_form = AppSettings.objects.get(user=request.user)
-        app_form = AppSettingsForm(request.POST or None, instance=instance_app_form)
-    except:
-        app_form = AppSettingsForm(request.POST or None)
-
-    if request.method == "POST":
-        if user_form.is_valid():
-            user_form.save()
-        if app_form.is_valid():
-            form = app_form.save(commit=False)
-            form.user = request.user
-            form.save()
-
-        return redirect("accounts:profile")
-
-    context = {"user_form": user_form, "app_form": app_form}
-
-    return render(request, "accounts/profile.html", context)
+    def get_success_url(self):
+        return reverse_lazy("accounts:profile", kwargs={"pk": self.kwargs["pk"]})

@@ -1,4 +1,4 @@
-$blue: #0a2c5c;
+$blue: #273c75;
 $light: #f8f9fa;
 
 html {
@@ -22,6 +22,10 @@ a {
 
 .text-sm {
   font-size: 0.875rem;
+}
+
+.navbar-brand img {
+  transform: rotate(-10deg);
 }
 
 .nav-link {

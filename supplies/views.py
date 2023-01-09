@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, View
 
-from accounts.models import AppSettings
 from stats.views import _last_mileage
 from vehicles.models import Vehicle
 
@@ -46,7 +45,6 @@ class SupplyListView(LoginRequiredMixin, Mixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["settings"] = AppSettings.objects.get(user=self.request.user)
         return context
 
 

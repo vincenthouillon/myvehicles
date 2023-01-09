@@ -7,9 +7,6 @@ from django.contrib.auth.forms import (
     UserChangeForm,
     UserCreationForm,
 )
-from django.forms import ModelForm
-
-from .models import AppSettings
 
 
 class RegisterForm(UserCreationForm):
@@ -40,7 +37,14 @@ class SigninForm(AuthenticationForm):
 class UserForm(UserChangeForm):
     class Meta:
         model = get_user_model()
-        fields = ("username", "last_name", "first_name", "email")
+        fields = (
+            "username",
+            "last_name",
+            "first_name",
+            "email",
+            "currency",
+            "distance_unit",
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -64,17 +68,6 @@ class PwdChangeForm(PasswordChangeForm):
 
 class PwdResetConfirmForm(SetPasswordForm):
     user = get_user_model()  # type:ignore
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs["class"] = "form-control form-control-sm"
-
-
-class AppSettingsForm(ModelForm):
-    class Meta:
-        model = AppSettings
-        fields = ("currency", "distance_unit")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

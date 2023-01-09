@@ -12,7 +12,6 @@ from django.views.generic import (
     View,
 )
 
-from accounts.models import AppSettings
 from expenses.models import Expense
 from supplies.models import Supply
 
@@ -40,7 +39,6 @@ class VehicleHomeView(LoginRequiredMixin, Mixin, TemplateView):
         context["vehicle"] = vehicle
         context["supplies"] = Supply.objects.filter(vehicle=vehicle)[:10]
         context["expenses"] = Expense.objects.filter(vehicle=vehicle)[:10]
-        context["settings"] = AppSettings.objects.get(user=self.request.user)
         return context
 
 

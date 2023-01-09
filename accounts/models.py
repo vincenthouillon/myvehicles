@@ -3,10 +3,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class User(AbstractUser):
-    pass
-
-
 class Currency(models.Model):
     """For populate with currencies.json.
     Command : python manage.py addcurrencies
@@ -28,21 +24,22 @@ class Currency(models.Model):
         return self.code
 
 
-class AppSettings(models.Model):
+class User(AbstractUser):
+    """AbstractUser with additional fields `currency` and `distance_unit`."""
+
     DISTANCE_CHOICES = (
         ("Km", _("kilometers")),
         ("Mi", _("miles")),
     )
-    user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE)
     currency = models.ForeignKey(
-        Currency, verbose_name=_("currency"), on_delete=models.CASCADE
+        Currency, verbose_name=_("currency"), on_delete=models.CASCADE, null=True
     )
     distance_unit = models.CharField(
         _("distance unit"), max_length=24, choices=DISTANCE_CHOICES, default="Km"
     )
 
     class Meta:
-        verbose_name = _("app setting")
+        verbose_name = _("user")
 
     def __str__(self):
-        return f"{self.user} ({self.currency} - {self.distance_unit})"
+        return self.username
