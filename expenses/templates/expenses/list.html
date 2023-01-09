@@ -17,14 +17,14 @@
                 <div class="d-flex flex-column w-100">
                   <div class="d-flex justify-content-between">
                     <div class="text-sm">{{ expense.date }}</div>
-                    <div class="h5 mb-0 text-nowrap fw-bold">{{ expense.price }} {{ settings.currency.symbol }}</div>
+                    <div class="h5 mb-0 text-nowrap fw-bold">{{ expense.price }} {{ user.currency.symbol }}</div>
                   </div>
                   <p class="mb-0 text-primary fw-bold">{{ expense.title }}</p>
                   <p class="mb-0 text-sm">
                     <i class="bi bi-geo-alt"></i> {{ expense.vendor }}
                   </p>
                   <p class="mb-0 text-secondary text-sm">
-                    {{ expense.mileage }} {{ settings.distance_unit }}
+                    {{ expense.mileage }} {{ user.distance_unit }}
                     {% if expense.note %}
                       &middot;
                       {{ expense.note|truncatechars:40 }}

@@ -33,8 +33,8 @@
               {% else %}
                 <td>{{ cost.vendor }}</td>
               {% endif %}
-              <td class="text-end">{{ cost.mileage|floatformat:"0g" }} {{ settings.distance_unit }}</td>
-              <td class="text-end text-nowrap">{{ cost.price|floatformat:"2g" }} {{ settings.currency.symbol }}</td>
+              <td class="text-end">{{ cost.mileage|floatformat:"0g" }} {{ user.distance_unit }}</td>
+              <td class="text-end text-nowrap">{{ cost.price|floatformat:"2g" }} {{ user.currency.symbol }}</td>
             </tr>
           {% endfor %}
         </tbody>

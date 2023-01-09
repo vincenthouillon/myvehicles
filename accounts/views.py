@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
@@ -33,6 +34,11 @@ class UserLoginView(LoginView):
     authentication_form = SigninForm
     template_name = "accounts/login.html"
     next_page = reverse_lazy("vehicles:list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["signups_allowed"] = settings.SIGNUPS_ALLOWED
+        return context
 
 
 class UserLogoutView(LogoutView):

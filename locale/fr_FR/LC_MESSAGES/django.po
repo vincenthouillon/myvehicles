@@ -1,0 +1,704 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Vincent Houillon <vhouillon@gmail.com>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-09 16:36+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Vincent Houillon <vhouillon@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: accounts/models.py:11 vehicles/models.py:34
+msgid "name"
+msgstr "nom"
+
+#: accounts/models.py:12
+msgid "symbol"
+msgstr "symbole"
+
+#: accounts/models.py:13
+msgid "symbol native"
+msgstr "symbole natif"
+
+#: accounts/models.py:14
+msgid "decimal digit"
+msgstr "nombre de décimal"
+
+#: accounts/models.py:15
+msgid "rounding"
+msgstr "arrondi"
+
+#: accounts/models.py:16
+msgid "code"
+msgstr "code"
+
+#: accounts/models.py:17
+msgid "name plural"
+msgstr "nom pluriel"
+
+#: accounts/models.py:31
+msgid "kilometers"
+msgstr "kilomètres"
+
+#: accounts/models.py:32
+msgid "miles"
+msgstr "miles"
+
+#: accounts/models.py:35
+msgid "currency"
+msgstr "devise"
+
+#: accounts/models.py:38
+msgid "distance unit"
+msgstr "unité de distance"
+
+#: accounts/models.py:42
+msgid "user"
+msgstr "utilisateur"
+
+#: accounts/templates/accounts/login.html:14
+msgid "Self-hosted vehicle expense tracking solution."
+msgstr "Solution auto-hébergée de suivi de dépenses de véhicules."
+
+#: accounts/templates/accounts/login.html:20
+msgid "Connection"
+msgstr "Connexion"
+
+#: accounts/templates/accounts/login.html:26
+msgid "Create an account"
+msgstr "Créér un compte"
+
+#: accounts/templates/accounts/login.html:28
+#: accounts/templates/accounts/password_reset.html:18
+#: accounts/templates/accounts/password_reset_complete.html:10
+msgid "Login"
+msgstr "Connexion"
+
+#: accounts/templates/accounts/login.html:30
+#: accounts/templates/accounts/password_reset.html:7
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié ?"
+
+#: accounts/templates/accounts/password_change.html:8
+msgid "Password change"
+msgstr "Changement de mot de passe"
+
+#: accounts/templates/accounts/password_change.html:25
+#: accounts/templates/accounts/profile.html:56
+#: accounts/templates/accounts/register.html:42
+#: expenses/templates/expenses/edit.html:51
+#: supplies/templates/supplies/edit.html:66
+#: vehicles/templates/vehicles/edit.html:105
+msgid "Cancel"
+msgstr "Annuler"
+
+#: accounts/templates/accounts/password_change.html:26
+#: accounts/templates/accounts/password_reset_confirm.html:27
+msgid "Submit"
+msgstr "Soumettre"
+
+#: accounts/templates/accounts/password_reset.html:11
+msgid ""
+"Forgotten your password? Enter your email address below, and we’ll email "
+"instructions for setting a new one."
+msgstr ""
+"Mot de passe oublié ? Entrez votre adresse e-mail ci-dessous et nous vous "
+"enverrons par e-mail des instructions pour en définir un nouveau."
+
+#: accounts/templates/accounts/password_reset.html:19
+msgid "Reset my password"
+msgstr "Réinitialiser mon mot de passe"
+
+#: accounts/templates/accounts/password_reset_complete.html:7
+msgid "Password reset completed"
+msgstr "Réinitialisation du mot de passe terminée"
+
+#: accounts/templates/accounts/password_reset_complete.html:8
+msgid "Your password has been set. You can login now."
+msgstr ""
+"Votre mot de passe a été défini. Vous pouvez vous connecter maintenant."
+
+#: accounts/templates/accounts/password_reset_confirm.html:14
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: accounts/templates/accounts/password_reset_done.html:7
+msgid "Password reset sent"
+msgstr "Envoi réinitialisation du mot de passe"
+
+#: accounts/templates/accounts/password_reset_done.html:9
+msgid ""
+"\"We have emailed you instructions for setting\n"
+"your password, if an account exists with the email address you entered.\n"
+"you entered. You should receive them shortly.\n"
+"If you do not receive an e-mail, please verify that you have entered the "
+"address\n"
+"the address you registered with and check your junk mail folder.\n"
+"your junk mail folder.\"\n"
+msgstr ""
+"Nous vous avons envoyé par e-mail les instructions pour définir\n"
+"votre mot de passe, si un compte existe avec l'adresse e-mail que vous avez "
+"saisie.\n"
+"que vous avez indiquée. Vous devriez les recevoir sous peu.\n"
+"Si vous ne recevez pas d'e-mail, veuillez vérifier que vous avez bien saisi "
+"l'adresse\n"
+"l'adresse avec laquelle vous vous êtes inscrit et vérifiez votre dossier de "
+"courrier indésirable.\n"
+"votre dossier de courrier indésirable.\"\n"
+
+#: accounts/templates/accounts/password_reset_email.html:3
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Vous recevez cet e-mail car vous avez demandé la réinitialisation du mot de "
+"passe de votre compte d'utilisateur sur %(site_name)s."
+
+#: accounts/templates/accounts/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+"Veuillez vous rendre sur la page suivante et choisir un nouveau mot de "
+"passe :"
+
+#: accounts/templates/accounts/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr "Votre nom d'utilisateur, au cas où vous l'auriez oublié :"
+
+#: accounts/templates/accounts/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr "Merci d'utiliser notre sirte !"
+
+#: accounts/templates/accounts/password_reset_email.html:10
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "L'équipe %(site_name)s"
+
+#: accounts/templates/accounts/profile.html:8 templates/_navbar.html:48
+msgid "My account"
+msgstr "Mon compte"
+
+#: accounts/templates/accounts/profile.html:29
+#, python-format
+msgid ""
+"\n"
+"Raw passwords are not stored, so there is no way to see this user’s "
+"password, but you can change the password using <a href=%(the_url)s>this "
+"form</a>.\" "
+msgstr ""
+"\n"
+"Les mots de passe ne sont pas enregistrés en clair, ce qui ne permet pas "
+"d’afficher le mot de passe de cet utilisateur, mais il est possible de le "
+"changer en utilisant <a href=%(the_url)s>ce formulaire</a>. "
+
+#: accounts/templates/accounts/profile.html:34
+msgid "Registration date:"
+msgstr "Date d'inscription :"
+
+#: accounts/templates/accounts/profile.html:38
+msgid "Last connection:"
+msgstr "Dernière connexion :"
+
+#: accounts/templates/accounts/profile.html:43
+msgid "Settings"
+msgstr "Paramètres"
+
+#: accounts/templates/accounts/profile.html:57
+msgid "Update"
+msgstr "Mettre à jour"
+
+#: accounts/templates/accounts/register.html:8
+msgid "Sign up"
+msgstr "S'inscrire"
+
+#: accounts/templates/accounts/register.html:43
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+#: expenses/forms.py:11
+msgid "Category"
+msgstr "Catégorie"
+
+#: expenses/forms.py:14 stats/templates/stats/allcosts.html:12
+#: supplies/forms.py:11
+msgid "Date"
+msgstr "Date"
+
+#: expenses/forms.py:18
+msgid "Title"
+msgstr "Titre"
+
+#: expenses/forms.py:19
+msgid "Vendor"
+msgstr "Vendeur"
+
+#: expenses/forms.py:21
+msgid "Total"
+msgstr "Total"
+
+#: expenses/forms.py:27 stats/templates/stats/allcosts.html:14
+msgid "Mileage"
+msgstr "Kilométrage"
+
+#: expenses/forms.py:32 supplies/forms.py:25 vehicles/forms.py:19
+msgid "Note"
+msgstr "Note"
+
+#: expenses/forms.py:34 supplies/forms.py:16
+msgid "File"
+msgstr "Fichier"
+
+#: expenses/models.py:8
+msgid "Maintenance"
+msgstr "Entretien"
+
+#: expenses/models.py:9
+msgid "Repair"
+msgstr "Réparation"
+
+#: expenses/models.py:10
+msgid "Administrative"
+msgstr "Administratif"
+
+#: expenses/models.py:11
+msgid "Various"
+msgstr "Divers"
+
+#: expenses/models.py:31
+msgid "title"
+msgstr "titre"
+
+#: expenses/models.py:32 supplies/models.py:25
+msgid "vendor"
+msgstr "vendeur"
+
+#: expenses/models.py:34
+msgid "category"
+msgstr "catégorie"
+
+#: expenses/models.py:36 supplies/models.py:29
+msgid "date"
+msgstr "date"
+
+#: expenses/models.py:37 supplies/models.py:30 vehicles/models.py:45
+msgid "mileage"
+msgstr "kilométrage"
+
+#: expenses/models.py:38 supplies/models.py:34 vehicles/models.py:54
+msgid "price"
+msgstr "prix"
+
+#: expenses/models.py:43 supplies/models.py:38
+msgid "file"
+msgstr "fichier"
+
+#: expenses/models.py:49
+msgid "expense"
+msgstr "dépense"
+
+#: expenses/templates/expenses/edit.html:5
+#: stats/templates/stats/partials/chart_allcosts.html:8
+#: templates/_navbar.html:33 vehicles/templates/vehicles/home.html:25
+msgid "Expenses"
+msgstr "Dépenses"
+
+#: expenses/templates/expenses/edit.html:28
+msgid "Last odometer reading"
+msgstr "Dernier relevé kilométrique"
+
+#: expenses/templates/expenses/edit.html:46
+#: supplies/templates/supplies/edit.html:61
+#: vehicles/templates/vehicles/edit.html:53
+msgid "Currently:"
+msgstr "Actuellement :"
+
+#: expenses/templates/expenses/edit.html:57
+#: expenses/templates/expenses/edit.html:84
+#: supplies/templates/supplies/edit.html:72
+#: supplies/templates/supplies/edit.html:99
+#: vehicles/templates/vehicles/edit.html:112
+#: vehicles/templates/vehicles/edit.html:140
+msgid "Delete"
+msgstr "Supprimer"
+
+#: expenses/templates/expenses/edit.html:60
+#: supplies/templates/supplies/edit.html:75
+#: vehicles/templates/vehicles/edit.html:115
+msgid "Save"
+msgstr "Enregistrer"
+
+#: expenses/templates/expenses/edit.html:73
+#: supplies/templates/supplies/edit.html:88
+#: vehicles/templates/vehicles/edit.html:128
+msgid "Delete confirmation"
+msgstr "Confirmation de suppression"
+
+#: expenses/templates/expenses/edit.html:79
+#, python-format
+msgid "Are you sure you want to delete: %(expense)s?"
+msgstr "Êtes-vous sûr de vouloir supprimer : %(expense)s ?"
+
+#: expenses/templates/expenses/edit.html:81
+#: supplies/templates/supplies/edit.html:96
+#: vehicles/templates/vehicles/edit.html:136
+msgid "Close"
+msgstr "Fermer"
+
+#: expenses/templates/expenses/list.html:41
+msgid "No expenses found."
+msgstr "Pas de dépenses trouvées."
+
+#: expenses/templates/expenses/list.html:45
+#: supplies/templates/supplies/list.html:49
+msgid "Add"
+msgstr "Ajouter"
+
+#: expenses/templates/expenses/list.html:58
+#: stats/templates/stats/allcosts.html:70
+#: supplies/templates/supplies/list.html:62
+msgid "first"
+msgstr "premier"
+
+#: expenses/templates/expenses/list.html:59
+#: stats/templates/stats/allcosts.html:71
+#: supplies/templates/supplies/list.html:63
+msgid "previous"
+msgstr "précédent"
+
+#: expenses/templates/expenses/list.html:62
+#: stats/templates/stats/allcosts.html:74
+#: supplies/templates/supplies/list.html:66
+#, python-format
+msgid ""
+"\n"
+"        Page %(number)s of %(num_pages)s.\n"
+"        "
+msgstr ""
+
+#: expenses/templates/expenses/list.html:67
+#: stats/templates/stats/allcosts.html:79
+#: supplies/templates/supplies/list.html:71
+msgid "next"
+msgstr "suivant"
+
+#: expenses/templates/expenses/list.html:68
+#: stats/templates/stats/allcosts.html:80
+#: supplies/templates/supplies/list.html:72
+msgid "last"
+msgstr "dernier"
+
+#: stats/templates/stats/allcosts.html:13
+msgid "Designation"
+msgstr "Désignation"
+
+#: stats/templates/stats/allcosts.html:15
+msgid "Amount"
+msgstr "Montant"
+
+#: stats/templates/stats/allcosts.html:44
+#: vehicles/templates/vehicles/edit.html:103
+msgid "Back"
+msgstr "Retour"
+
+#: stats/templates/stats/allcosts.html:56
+#: vehicles/templates/vehicles/home.html:53
+msgid "Supply"
+msgstr "Ravitaillement"
+
+#: stats/templates/stats/allcosts.html:62
+#: vehicles/templates/vehicles/home.html:59
+msgid "Expense"
+msgstr "Dépense"
+
+#: stats/templates/stats/partials/chart_allcosts.html:8
+#: supplies/templates/supplies/edit.html:5 templates/_navbar.html:30
+#: vehicles/templates/vehicles/home.html:8
+msgid "Supplies"
+msgstr "Ravitaillements"
+
+#: stats/templates/stats/partials/chart_amount.html:15
+msgid "Total supplies"
+msgstr "Total des ravitaillements"
+
+#: stats/templates/stats/partials/chart_amount.html:26
+msgid "Total expenses"
+msgstr "Total des dépenses"
+
+#: stats/templates/stats/stats.html:7
+msgid "Summary of supply expenses"
+msgstr "Synthèse dépenses ravitaillements"
+
+#: stats/templates/stats/stats.html:10
+msgid "Initial mileage:"
+msgstr "Kilométrage initial :"
+
+#: stats/templates/stats/stats.html:13 supplies/templates/supplies/edit.html:13
+msgid "Last odometer reading:"
+msgstr "Dernier relevé kilométrique :"
+
+#: stats/templates/stats/stats.html:16
+msgid "Number of kilometers traveled:"
+msgstr "Nombre de kilomètres parcourus :"
+
+#: stats/templates/stats/stats.html:19
+msgid "Number of supplies:"
+msgstr "Nombre de ravitaillements :"
+
+#: stats/templates/stats/stats.html:22
+msgid "Total supplies:"
+msgstr "Total ravitaillements :"
+
+#: stats/templates/stats/stats.html:24 stats/templates/stats/stats.html:37
+msgid "that is"
+msgstr "soit"
+
+#: stats/templates/stats/stats.html:28
+msgid "Total number of liters:"
+msgstr "Nombre total de litres :"
+
+#: stats/templates/stats/stats.html:32
+msgid "Number of expenses:"
+msgstr "Nombre de dépenses :"
+
+#: stats/templates/stats/stats.html:35
+msgid "Total expenses:"
+msgstr "Total dépenses :"
+
+#: stats/templates/stats/stats.html:42
+msgid "Total amount all expenses:"
+msgstr "Montant total toutes dépenses :"
+
+#: stats/templates/stats/stats.html:47
+msgid "See all expenses"
+msgstr "Voir toutes les dépenses"
+
+#: stats/templates/stats/stats.html:58
+msgid "Current year's expenses and supplies by month"
+msgstr "Dépenses et fournitures de l'année en cours par mois"
+
+#: stats/templates/stats/stats.html:61
+msgid "Expenses by category"
+msgstr "Dépenses par catégories"
+
+#: stats/templates/stats/stats.html:72
+msgid "Total of expenses:"
+msgstr "Total des dépenses :"
+
+#: supplies/forms.py:18 supplies/models.py:35
+msgid "full tank"
+msgstr "réservoir plein"
+
+#: supplies/models.py:27
+msgid "Fuel type"
+msgstr "Type de carburant"
+
+#: supplies/models.py:32
+msgid "number of liters"
+msgstr "nombre de litres"
+
+#: supplies/models.py:44
+msgid "fuel"
+msgstr "carburant"
+
+#: supplies/templates/supplies/edit.html:94
+#, python-format
+msgid "Are you sure you want to delete: %(supply)s?"
+msgstr "Êtes-vous sûr de vouloir supprimer : %(supply)s ?"
+
+#: supplies/templates/supplies/list.html:45
+msgid "No supplies found."
+msgstr "Pas de ravitaillements trouvés."
+
+#: templates/_navbar.html:36
+msgid "Informations"
+msgstr "Informations"
+
+#: templates/_navbar.html:40
+msgid "Stats"
+msgstr "Statistiques"
+
+#: templates/_navbar.html:51
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: vehicles/forms.py:10
+msgid "Picture"
+msgstr "Image"
+
+#: vehicles/forms.py:14
+msgid "Purchase date"
+msgstr "Date d'achat"
+
+#: vehicles/forms.py:22
+msgid "Date of 1st circulation"
+msgstr "Date de 1er mise en circulation"
+
+#: vehicles/forms.py:27
+msgid "Active"
+msgstr "Active"
+
+#: vehicles/forms.py:35
+msgid "Inactive since"
+msgstr "Inactive depuis"
+
+#: vehicles/models.py:12
+msgid "diesel"
+msgstr "diesel"
+
+#: vehicles/models.py:13
+msgid "petrol"
+msgstr "essence"
+
+#: vehicles/models.py:14
+msgid "ethanol"
+msgstr "éthanol"
+
+#: vehicles/models.py:15
+msgid "electric"
+msgstr "électrique"
+
+#: vehicles/models.py:16
+msgid "CNG"
+msgstr "GNC"
+
+#: vehicles/models.py:17
+msgid "LPG"
+msgstr "GPL"
+
+#: vehicles/models.py:21
+msgid "liter"
+msgstr "litre"
+
+#: vehicles/models.py:22
+msgid "gallon"
+msgstr "gallon"
+
+#: vehicles/models.py:23
+msgid "kilogram"
+msgstr "kilogramme"
+
+#: vehicles/models.py:24
+msgid "kilowatt hour"
+msgstr "kilowatt-heure"
+
+#: vehicles/models.py:25
+msgid "minutes"
+msgstr "minutes"
+
+#: vehicles/models.py:35
+msgid "description"
+msgstr "description"
+
+#: vehicles/models.py:36
+msgid "manufacturer"
+msgstr "fabriquant"
+
+#: vehicles/models.py:37
+msgid "model"
+msgstr "modèle"
+
+#: vehicles/models.py:38
+msgid "horsepower"
+msgstr "puissance"
+
+#: vehicles/models.py:40
+msgid "fuel type"
+msgstr "type de carburant"
+
+#: vehicles/models.py:43
+msgid "fuel unit"
+msgstr "unité de carburant"
+
+#: vehicles/models.py:46
+msgid "tank size"
+msgstr "capacité du réservoir"
+
+#: vehicles/models.py:48
+msgid "date of 1st circulation"
+msgstr "date de 1er mise en circulation"
+
+#: vehicles/models.py:51
+msgid "registration"
+msgstr "immatriculation"
+
+#: vehicles/models.py:56
+msgid "date purchase"
+msgstr "date d'achat"
+
+#: vehicles/models.py:57
+msgid "note"
+msgstr "note"
+
+#: vehicles/models.py:59
+msgid "picture"
+msgstr "image"
+
+#: vehicles/models.py:61
+msgid "is active"
+msgstr "est actif"
+
+#: vehicles/models.py:62
+msgid "inactive since"
+msgstr "inactif depuis"
+
+#: vehicles/models.py:64
+msgid "owner"
+msgstr "propriétaire"
+
+#: vehicles/models.py:66
+msgid "created at"
+msgstr "créé le"
+
+#: vehicles/models.py:67
+msgid "updated at"
+msgstr "mis à jour le"
+
+#: vehicles/models.py:70
+msgid "vehicle"
+msgstr "véhicule"
+
+#: vehicles/templates/vehicles/edit.html:57
+msgid "OPTIONAL"
+msgstr "FACULTATIF"
+
+#: vehicles/templates/vehicles/edit.html:80
+msgid "STATUS"
+msgstr "STATUS"
+
+#: vehicles/templates/vehicles/edit.html:134
+#, python-format
+msgid "Are you sure you want to delete: %(vehicle)s?"
+msgstr "Êtes-vous sûr de vouloir supprimer : %(vehicle)s ?"
+
+#: vehicles/templates/vehicles/home.html:12
+msgid "The last 10 refuelings"
+msgstr "Les 10 derniers ravitaillements"
+
+#: vehicles/templates/vehicles/home.html:29
+msgid "The last 10 expenses"
+msgstr "Les 10 dernières dépenses"
+
+#: vehicles/templates/vehicles/list.html:26
+msgid "active"
+msgstr "actif"
+
+#: vehicles/templates/vehicles/list.html:29
+msgid "inactive"
+msgstr "inactif"
+
+#: vehicles/templates/vehicles/list.html:40
+msgid "Add vehicle"
+msgstr "Ajouter un véhicule"
+
+#: vehicles/views.py:76
+msgid "You already have a vehicle with this name."
+msgstr "Vous avez déjà un vehicule avec ce nom."
