@@ -1,0 +1,18 @@
+version: "3.7"
+# ${VARIABLE:-default} evaluates to default if VARIABLE is unset or empty in the environment.
+services:
+  web:
+    container_name: myvehicles
+    build:
+      context: .
+    image: myvehicles:0.9
+    restart: always
+    environment:
+      DEBUG: "${DEBUG:-false}"
+      MESVEHICULES_URL: "${MYVEHICLES_URL:-http://localhost:8765}"
+      SIGNUPS_ALLOWED: "${SIGNUPS_ALLOWED:-false}"
+    volumes:
+      - ${DATA_PATH:-/volume1/docker/myvehicles}/media:/app/media
+      - ${DATA_PATH:-/volume1/docker/myvehicles}/db:/app/db
+    ports:
+      - 8765:8765

@@ -35,11 +35,11 @@ DEBUG = bool(
     os.environ.get("DEBUG", "false").lower() in ("true", "1", "yes")  # type:ignore
 )
 
-_mesvehicules_url = os.environ.get("MESVEHICULES_URL")
-_mesvehicules_uri = urlparse(_mesvehicules_url)
-if _mesvehicules_url:
-    ALLOWED_HOSTS = [_mesvehicules_uri.hostname] + ["localhost"]
-    CSRF_TRUSTED_ORIGINS = [_mesvehicules_url]
+_myvehicles_url = os.environ.get("MYVEHICLES_URL")
+_myvehicles_uri = urlparse(_myvehicles_url)
+if _myvehicles_url:
+    ALLOWED_HOSTS = [_myvehicles_uri.hostname] + ["localhost"]
+    CSRF_TRUSTED_ORIGINS = [_myvehicles_url]
 else:
     ALLOWED_HOSTS = ["*"]
 
