@@ -56,7 +56,9 @@
       </div>
     </div>
     <h3>{% trans "Current year's expenses and supplies by month" %}</h3>
-    {% include './partials/chart_amount.html' with data=monthly_graph_data %}
+    {% include './partials/chart_supplies.html' with data=monthly_graph_data %}
+    <h3 class="mt-4">{% trans "Current year's expenses by month" %}</h3>
+    {% include './partials/chart_expenses.html' with data=monthly_graph_data %}
     <div class="row mt-3">
       <h3>{% trans "Expenses by category" %}</h3>
       <div class="col-md-7 mb-3">

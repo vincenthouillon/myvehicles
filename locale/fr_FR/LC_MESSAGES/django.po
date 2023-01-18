@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-09 18:05+0100\n"
+"POT-Creation-Date: 2023-01-18 10:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Vincent Houillon <vhouillon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -425,13 +425,13 @@ msgstr "Dépense"
 msgid "Supplies"
 msgstr "Ravitaillements"
 
-#: stats/templates/stats/partials/chart_amount.html:15
-msgid "Total supplies"
-msgstr "Total des ravitaillements"
-
-#: stats/templates/stats/partials/chart_amount.html:26
+#: stats/templates/stats/partials/chart_expenses.html:15
 msgid "Total expenses"
 msgstr "Total des dépenses"
+
+#: stats/templates/stats/partials/chart_supplies.html:15
+msgid "Total supplies"
+msgstr "Total des ravitaillements"
 
 #: stats/templates/stats/stats.html:7
 msgid "Summary of supply expenses"
@@ -483,13 +483,17 @@ msgstr "Voir toutes les dépenses"
 
 #: stats/templates/stats/stats.html:58
 msgid "Current year's expenses and supplies by month"
-msgstr "Dépenses et fournitures de l'année en cours par mois"
+msgstr "Dépenses de l'année en cours par mois"
 
-#: stats/templates/stats/stats.html:61
+#: stats/templates/stats/stats.html:60
+msgid "Current year's expenses by month"
+msgstr "Ravitaillements de l'année en cours par mois"
+
+#: stats/templates/stats/stats.html:63
 msgid "Expenses by category"
 msgstr "Dépenses par catégories"
 
-#: stats/templates/stats/stats.html:72
+#: stats/templates/stats/stats.html:74
 msgid "Total of expenses:"
 msgstr "Total des dépenses :"
 
@@ -701,7 +705,8 @@ msgstr "Ajouter un véhicule"
 
 #: vehicles/views.py:56
 msgid "You need to change the username and password of the `changeme` account."
-msgstr "Vous devez modifier l'identifiant et le mot de passe du compte `changeme`."
+msgstr ""
+"Vous devez modifier l'identifiant et le mot de passe du compte `changeme`."
 
 #: vehicles/views.py:89
 msgid "You already have a vehicle with this name."

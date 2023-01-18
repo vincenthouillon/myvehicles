@@ -1,0 +1,40 @@
+{% load i18n %}
+<canvas class="border rounded p-3 bg-white"
+        id="lineExpenses"
+        width="400"
+        height="250"></canvas>
+<script>
+  var chartAmount = document.getElementById('lineExpenses').getContext('2d');
+  // Chart.defaults.global.defaultFontColor = 'black'; // Global font color
+  var mixedChart = new Chart(chartAmount, {
+    data: {
+      labels: {{ data.month_list|safe }},
+      datasets: [
+      {
+        type:"line",
+        label: "{% trans 'Total expenses' %}",
+        data: {{ data.expenses_data|safe }},
+        backgroundColor: 'rgba(251,119,125)',
+        borderWidth: 2,
+        borderColor: 'rgba(251,119,125)',
+        fill: false,
+        clubicInterpolationMode: 'default',
+        tension: 0.2,
+      }
+      ]
+    },
+    options: {
+      // remove legend title
+      legend: {
+        display: true,
+      },
+      plugins: {
+        title: {
+          display: false,
+          text: '2022',
+          position: 'bottom'
+          },
+      }
+    },
+  });
+</script>

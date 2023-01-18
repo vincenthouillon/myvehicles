@@ -1,10 +1,10 @@
 {% load i18n %}
 <canvas class="border rounded p-3 bg-white"
-        id="lineAmount"
+        id="lineSupplies"
         width="400"
         height="250"></canvas>
 <script>
-  var chartAmount = document.getElementById('lineAmount').getContext('2d');
+  var chartAmount = document.getElementById('lineSupplies').getContext('2d');
   // Chart.defaults.global.defaultFontColor = 'black'; // Global font color
   var mixedChart = new Chart(chartAmount, {
     data: {
@@ -17,21 +17,10 @@
         backgroundColor: 'rgba(54,162,235, 0.7)',
         borderWidth: 2,
         borderColor: 'rgba(54,162,235)',
-        fill: true,
+        fill: false,
         clubicInterpolationMode: 'default',
         tension: 0.2,
       },
-      {
-        type:"line",
-        label: "{% trans 'Total expenses' %}",
-        data: {{ data.expenses_data|safe }},
-        backgroundColor: 'rgba(251,119,125, 0.7)',
-        borderWidth: 2,
-        borderColor: 'rgba(251,119,125)',
-        fill: true,
-        clubicInterpolationMode: 'default',
-        tension: 0.2,
-      }
       ]
     },
     options: {
